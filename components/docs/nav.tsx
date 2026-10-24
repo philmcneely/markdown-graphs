@@ -13,6 +13,7 @@ import { MonoLabel } from "@/components/docs/mono-label"
 import { components, getStarted } from "@/lib/docs/catalog"
 import { isNewSlug } from "@/lib/docs/new"
 import { cn } from "@/lib/utils"
+import { HitArea } from "@/components/site/hit-area"
 
 function DocsNav({ onNavigate }: { onNavigate?: () => void }) {
   return (
@@ -92,7 +93,7 @@ function NavItem({
       >
         <span className="min-w-0 truncate">{children}</span>
         {isNew ? (
-          <span className="shrink-0 font-mono text-[10px] tracking-wide text-graph-accent">
+          <span className="shrink-0 font-mono text-xs tracking-wide text-graph-accent">
             new
           </span>
         ) : null}
@@ -107,7 +108,7 @@ function ScrollFade({ edge }: { edge: "top" | "bottom" }) {
 
   return (
     <div
-      aria-hidden
+      aria-hidden="true"
       className={cn(
         "pointer-events-none absolute inset-x-0 z-10 h-10",
         isTop ? "top-0" : "bottom-0"
@@ -131,9 +132,9 @@ function ScrollFade({ edge }: { edge: "top" | "bottom" }) {
 
 function DocsSidebar() {
   return (
-    <aside className="sticky top-14 isolate max-h-[calc(100dvh-3.5rem)] w-64 shrink-0 max-lg:hidden sm:top-16 sm:max-h-[calc(100dvh-4rem)]">
+    <aside className="sticky top-16 isolate max-h-[calc(100dvh-4rem)] w-64 shrink-0 max-lg:hidden">
       <SiteRule className="right-0" orientation="y" />
-      <div className="scrollbar-none max-h-[calc(100dvh-3.5rem)] overflow-y-auto py-10 sm:max-h-[calc(100dvh-4rem)]">
+      <div className="scrollbar-none max-h-[calc(100dvh-4rem)] overflow-y-auto py-10">
         <DocsNav />
       </div>
       <ScrollFade edge="top" />
@@ -146,20 +147,12 @@ function DocsMobileNav() {
   const [open, setOpen] = useState(false)
 
   return (
-    <Dialog.Root
-      onOpenChange={(next) => {
-        setOpen(next)
-      }}
-      open={open}
-    >
+    <Dialog.Root onOpenChange={setOpen} open={open}>
       <Dialog.Trigger
         aria-label="Open docs menu"
         className="relative flex items-center gap-2 py-1 text-foreground"
       >
-        <span
-          aria-hidden="true"
-          className="absolute top-1/2 left-1/2 size-[max(100%,3rem)] -translate-1/2 pointer-fine:hidden"
-        />
+        <HitArea />
         <HugeiconsIcon
           className="size-4 shrink-0"
           icon={MenuIcon}
@@ -183,10 +176,7 @@ function DocsMobileNav() {
               aria-label="Close docs menu"
               className="relative size-8 text-foreground"
             >
-              <span
-                aria-hidden="true"
-                className="absolute top-1/2 left-1/2 size-[max(100%,3rem)] -translate-1/2 pointer-fine:hidden"
-              />
+              <HitArea />
               <HugeiconsIcon
                 className="size-4 shrink-0"
                 icon={Cancel01Icon}

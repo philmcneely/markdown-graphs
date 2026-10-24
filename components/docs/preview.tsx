@@ -4,12 +4,12 @@ import { useState, type ReactNode } from "react"
 
 import { CopyButton } from "@/components/docs/copy-button"
 import { MonoLabel } from "@/components/docs/mono-label"
+import { SegmentedTabs } from "@/components/docs/segmented-tabs"
 import { FrameBox } from "@/components/site/corners"
 import { ProseMuted } from "@/components/site/prose"
 import { useAccent } from "@/hooks/use-accent"
 import { accentCss } from "@/lib/accent"
 import { toMdxCopy } from "@/lib/docs/mdx"
-import { cn } from "@/lib/utils"
 
 type SourceTab = "mdx" | "md" | "react"
 
@@ -60,10 +60,10 @@ function ComponentPreview({
       </div>
 
       <FrameBox
-        className="min-w-0 overflow-visible bg-muted/25 p-2 sm:p-3"
+        className="min-w-0 overflow-visible bg-muted/25 p-1 sm:p-3"
         tone="rail"
       >
-        <div className="graph-scroll-x min-h-44 px-3 py-4 sm:min-h-48 sm:px-4 sm:py-5">
+        <div className="graph-scroll-x min-h-44 px-2.5 py-4 sm:min-h-48 sm:px-4 sm:py-5">
           {children}
         </div>
       </FrameBox>
@@ -71,31 +71,14 @@ function ComponentPreview({
       <div className="flex min-w-0 flex-col gap-2">
         <div className="flex items-center justify-between gap-4">
           <MonoLabel>{label}</MonoLabel>
-          <div
-            aria-label="Source format"
-            className="flex shrink-0 items-center gap-1"
-            role="tablist"
-          >
-            {tabs.map(([id, name]) => (
-              <button
-                aria-selected={tab === id}
-                className={cn(
-                  "relative px-2 py-1 font-mono text-muted-foreground hover:text-foreground",
-                  tab === id && "bg-muted text-foreground"
-                )}
-                key={id}
-                onClick={() => setTab(id)}
-                role="tab"
-                type="button"
-              >
-                <span
-                  aria-hidden="true"
-                  className="absolute top-1/2 left-1/2 size-[max(100%,3rem)] -translate-1/2 pointer-fine:hidden"
-                />
-                {name}
-              </button>
-            ))}
-          </div>
+          <SegmentedTabs
+            className="shrink-0 flex-nowrap"
+            label="Source format"
+            onValueChange={setTab}
+            tabClassName="font-mono"
+            tabs={tabs}
+            value={tab}
+          />
         </div>
         <FrameBox className="min-w-0 overflow-visible" tone="rail">
           <div className="absolute top-2 right-2 z-20">

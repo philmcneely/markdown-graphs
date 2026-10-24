@@ -32,9 +32,11 @@ const faqItems: FaqItem[] = [
     title: "what is mdxcn?",
     content: (
       <ProseP>
-        a collection of react charts and diagrams drawn with text characters.
-        each component is accessible, themeable, and framed to look at home
-        beside markdown prose.
+        A set of React components for docs and write-ups: callouts, steps,
+        timelines, tables and small charts. They&apos;re drawn with text
+        characters, so they sit naturally between paragraphs and still make
+        sense as plain text. Each one has a screen-reader summary and uses your
+        theme&apos;s colors.
       </ProseP>
     ),
   },
@@ -43,11 +45,11 @@ const faqItems: FaqItem[] = [
     title: "where can i use them?",
     content: (
       <ProseP>
-        use the react component in jsx or mdx. for readme files, issues, and
-        pull requests, paste the official ascii version.{" "}
-        <TextLink href={COMARK_URL}>comark</TextLink> uses{" "}
-        <InlineCode>::graph-*</InlineCode> blocks, while{" "}
-        <TextLink href={KNAP_URL}>knap</TextLink> uses{" "}
+        Anywhere MDX or JSX renders, use the React component. In READMEs, issues
+        and pull requests, paste the plain-text version from the .md tab. If
+        your Markdown goes through <TextLink href={COMARK_URL}>Comark</TextLink>
+        , write <InlineCode>::graph-*</InlineCode> blocks; with{" "}
+        <TextLink href={KNAP_URL}>Knap</TextLink>, use the{" "}
         <InlineCode>graph_*</InlineCode> filters.
       </ProseP>
     ),
@@ -58,15 +60,17 @@ const faqItems: FaqItem[] = [
     content: (
       <>
         <div className="flex items-start gap-2">
-          <pre className="graph-scroll-x min-w-0 flex-1 font-mono text-sm text-muted-foreground">
+          <pre className="min-w-0 flex-1 font-mono text-sm wrap-anywhere whitespace-pre-wrap text-muted-foreground sm:graph-scroll-x sm:whitespace-pre">
             <code>{HOME_INSTALL}</code>
           </pre>
           <CopyButton label="copy install command" text={HOME_INSTALL} />
         </div>
         <ProseMuted>
-          the shadcn cli copies the source into your project, so you own and can
-          edit every component. nothing is loaded from a runtime package.{" "}
-          <TextLink href={GITHUB_URL}>view the source on github</TextLink>.
+          That command installs everything. For a single component, use its
+          name, like <InlineCode>@mdxcn/graph-table</InlineCode>. The shadcn CLI
+          copies the source into your project, so the files are yours to edit
+          and there&apos;s no package to keep updated. The source is also{" "}
+          <TextLink href={GITHUB_URL}>on GitHub</TextLink>.
         </ProseMuted>
       </>
     ),
@@ -76,11 +80,12 @@ const faqItems: FaqItem[] = [
     title: "how do agents know which graph to use?",
     content: (
       <ProseP>
-        install the <TextLink href="/docs/skill">agent skill</TextLink>. it
-        chooses a graph for the job, uses a tested recipe, and emits the right
-        format for the file it is editing. without the skill,{" "}
-        <TextLink href="/llms.txt">/llms.txt</TextLink> provides the same
-        chooser and examples.
+        Install the <TextLink href="/docs/skill">agent skill</TextLink>. It
+        tells the agent which graph suits the content, gives it a tested example
+        to start from, and picks the right format for the file it&apos;s
+        editing. Without the skill,{" "}
+        <TextLink href="/llms.txt">/llms.txt</TextLink> has the same guide and
+        examples.
       </ProseP>
     ),
   },
@@ -89,9 +94,9 @@ const faqItems: FaqItem[] = [
     title: "can agents edit the result later?",
     content: (
       <ProseP>
-        yes. labels, values, and structure remain as jsx, yaml, or ascii in the
-        file. an agent can read and update them without interpreting an opaque
-        image or generated svg.
+        Yes. Labels, values and structure stay in the file as JSX, YAML or plain
+        text, so an agent can read and change them directly. There&apos;s no
+        image or generated SVG to reverse-engineer.
       </ProseP>
     ),
   },
@@ -100,10 +105,10 @@ const faqItems: FaqItem[] = [
     title: "is there an api?",
     content: (
       <ProseP>
-        yes. browse the json catalog at{" "}
-        <TextLink href="/api/v1/components">/api/v1/components</TextLink>, read
-        the <TextLink href="/openapi.json">openapi schema</TextLink>, or start
-        from the <TextLink href="/developers">developer guide</TextLink>.
+        Yes. The full catalog is JSON at{" "}
+        <TextLink href="/api/v1/components">/api/v1/components</TextLink>, with
+        an <TextLink href="/openapi.json">OpenAPI schema</TextLink> and a{" "}
+        <TextLink href="/developers">developer guide</TextLink>.
       </ProseP>
     ),
   },
@@ -123,8 +128,9 @@ function HomeFaq() {
               questions
             </h2>
             <ProseMuted>
-              what you install, where it works, and how agents use it. browse
-              every component in the <TextLink href="/docs">library</TextLink>.
+              Short answers on installing, where the figures work, and how
+              agents use them. The <TextLink href="/docs">library</TextLink>{" "}
+              lists every component.
             </ProseMuted>
           </div>
 

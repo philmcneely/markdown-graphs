@@ -37,32 +37,32 @@ const kit = [
   {
     name: "skill",
     detail:
-      "when to use a figure, which one, and whether to write jsx, a ::graph-* block, a graph_* filter, or the official fence. the same two files work in cursor, claude code, codex, or opencode.",
+      "Tells the agent when a figure helps, which graph fits, and which format the file needs: JSX, a ::graph-* block, a graph_* filter or the plain-text figure. The same two files work in Cursor, Claude Code, Codex and OpenCode.",
   },
   {
     name: "recipes",
     detail:
-      "worked write-ups with real props: copy the jsx, swap the labels, keep at most two graphs with prose between them.",
+      "Complete write-ups with real data. The agent copies one, swaps in its own labels, and keeps to two graphs with prose in between.",
   },
   {
     name: "comark",
     detail:
-      "::graph-* blocks with yaml props for the same graphs without mdx; github still gets the fence.",
+      "::graph-* blocks with YAML props, for apps that render plain Markdown with Comark instead of MDX.",
   },
   {
     name: "knap",
     detail:
-      "graph_* filters that turn a props object into the official fence, or a ::graph-* block when you pass comark.",
+      "graph_* filters that turn data into the plain-text figure inside a Knap template, or into a ::graph-* block for Comark.",
   },
   {
-    name: "fenced ascii",
+    name: "text figures",
     detail:
-      "code blocks that render the same in github, linear, and pr comments. change the labels, keep the frame, and do not draw a new figure.",
+      "Code blocks that look the same in GitHub, Linear and pull request comments. The agent edits the labels and leaves the frame alone.",
   },
   {
     name: "llms.txt",
     detail:
-      "chooser plus ascii, comark, and knap blocks in one file when the skill is not installed.",
+      "The graph guide and every format in a single file, for agents that don't have the skill installed.",
   },
 ]
 
@@ -138,12 +138,13 @@ export default function AgentsPage() {
         item="all"
         lead={
           <>
-            when a write-up needs a figure, the skill picks which graph to use.
-            emit jsx in mdx, a <InlineCode>::graph-*</InlineCode> block in a{" "}
-            <TextLink href={COMARK_URL}>comark</TextLink> app, a{" "}
+            When a write-up needs a figure, the skill tells your agent which
+            graph to use and how to write it for the file at hand: JSX in MDX, a{" "}
+            <InlineCode>::graph-*</InlineCode> block in a{" "}
+            <TextLink href={COMARK_URL}>Comark</TextLink> app, a{" "}
             <InlineCode>graph_*</InlineCode> filter in{" "}
-            <TextLink href={KNAP_URL}>knap</TextLink>, or the official fence in
-            a readme, pr, or linear note.
+            <TextLink href={KNAP_URL}>Knap</TextLink>, or a plain-text figure in
+            a README, pull request or Linear note.
           </>
         }
         title="write a figure your agent can edit"
@@ -152,12 +153,13 @@ export default function AgentsPage() {
       <LandingSection
         lead={
           <ProseP>
-            on write, the agent emits at most two graphs next to the claim. on
-            read, the figure is still characters in the file, so opening the mdx
-            shows labels and values instead of a screenshot.
+            When writing, the agent adds at most two graphs, each next to the
+            point it supports. When it comes back later, the figure is still
+            plain text in the file, so it can read the labels and values
+            directly instead of squinting at a screenshot.
           </ProseP>
         }
-        muted="github, linear, and a readme still get the official fence. they do not run comark."
+        muted="GitHub, Linear and READMEs don't run Comark, so they get the plain-text figure."
         title="writing and reading the same figure"
       >
         <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
@@ -199,9 +201,9 @@ export default function AgentsPage() {
       <LandingSection
         lead={
           <ProseP>
-            there are {components.length} graphs; most ship an official fenced
-            ascii for hosts that cannot run react. the skill should pick at most
-            two per write-up.
+            There are {components.length} graphs, and most have a plain-text
+            version for places that can&apos;t run React. Here&apos;s what the
+            agent gets to work with.
           </ProseP>
         }
         title="what goes in the agent's folder"
@@ -253,18 +255,18 @@ export default function AgentsPage() {
         id="install"
         lead={
           <ProseP>
-            a project copy travels with the repo; a personal copy stays on this
-            machine. if the host is react,{" "}
+            A project copy is committed with the repo; a personal copy stays on
+            your machine. If your site runs React,{" "}
             <TextLink href="/docs/installation">
               install the components
             </TextLink>{" "}
-            first. the graphs have to be in the project to render.
+            first, since the graphs have to be in the project to render.
           </ProseP>
         }
         muted={
           <>
-            the chooser table and full skill file are on{" "}
-            <TextLink href="/docs/skill">skill</TextLink>.
+            The full skill file and the graph guide are on the{" "}
+            <TextLink href="/docs/skill">skill</TextLink> page.
           </>
         }
         title="install the skill"
@@ -275,8 +277,8 @@ export default function AgentsPage() {
       <LandingSection
         lead={
           <ProseP>
-            paste one of these after install. each should pick two graphs and
-            put prose between them.
+            After installing, paste one of these prompts. A good result uses two
+            graphs, with prose in between.
           </ProseP>
         }
         title="try a prompt"

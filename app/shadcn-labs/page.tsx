@@ -10,7 +10,7 @@ import { FrameBox } from "@/components/site/corners"
 import { HeroInstall } from "@/components/site/hero-install"
 import { LabsDirectory, LabsLogo } from "@/components/site/labs"
 import { ProseP } from "@/components/site/prose"
-import { LABS_ANNOUNCEMENT, LABS_INSTALL } from "@/lib/agent/copy"
+import { LABS_ANNOUNCEMENT } from "@/lib/agent/copy"
 import { GITHUB_URL } from "@/lib/github"
 import { pageMeta, webPageJsonLd } from "@/lib/seo"
 import { addQueryParams } from "@/lib/url"
@@ -64,7 +64,7 @@ export default function ShadcnLabsPage() {
         {LABS_ANNOUNCEMENT.slice(1).map((para) => (
           <ProseP key={para}>{para}</ProseP>
         ))}
-        <HeroInstall className="mt-0 max-w-xl" command={LABS_INSTALL} />
+        <HeroInstall className="max-w-xl" item="all" />
         <LabsDirectory />
         <LandingLinks
           items={[

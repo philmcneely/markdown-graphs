@@ -8,7 +8,7 @@ export const COMARK_DEMO_URL = "https://comark-demo.vercel.app"
 export const COMARK_DEMO_REPO = "https://github.com/atinux/comark-demo"
 
 export const COMARK_DESCRIPTION =
-  "Write figures as ::graph-* blocks in plain Markdown. Comark parses the file and these graphs draw the frames, with no MDX compile step."
+  "Write figures as ::graph-* blocks in plain Markdown. Comark parses the file and mdxcn draws the frames, with no MDX compile step."
 
 export const COMARK_SKIP_SLUGS = ["graph-frame"] as const
 
@@ -73,7 +73,7 @@ Demo: ${COMARK_DEMO_URL}
 ${blocks}`
 }
 
-export const COMARK_DEMO_SOURCE = `p95 crossed 800ms at 14:02. Rollback at 14:11.
+export const COMARK_DEMO_SOURCE = `Latency crossed 800ms at 14:02, and we rolled back at 14:11.
 
 ::graph-timeline
 ---
@@ -85,7 +85,7 @@ events:
 ---
 ::
 
-Same night. Two days users felt it.
+Users noticed it on two days that week.
 
 ::graph-uptime
 ---

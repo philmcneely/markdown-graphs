@@ -10,12 +10,7 @@ function MonoLabel({
   className?: string
 }) {
   return (
-    <p
-      className={cn(
-        "font-mono tracking-wide text-graph-accent",
-        className
-      )}
-    >
+    <p className={cn("font-mono tracking-wide text-graph-accent", className)}>
       {children}
     </p>
   )

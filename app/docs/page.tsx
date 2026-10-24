@@ -26,7 +26,7 @@ export const metadata: Metadata = pageMeta({
   path: "/docs",
 })
 
-const intro = `each example has three tabs. .md is the framed figure as a code block, which you can paste into notion, linear, or a readme. .mdx is markdown inside the component tag, for an mdx page that registered the component in mdx-components.tsx. .tsx is the same figure as react.`
+const intro = `mdxcn is a set of React components for documentation, drawn with text: callouts, steps, timelines, tables and small charts. Every example in these docs has three tabs. .mdx is what you write in an MDX page, .tsx is the same figure in plain React, and .md is the figure as a code block you can paste into Notion, Linear or a README.`
 
 export default function DocsPage() {
   const groups = componentsByCategory()
@@ -58,57 +58,30 @@ export default function DocsPage() {
         title="introduction"
       >
         <p className="max-w-[56ch] text-pretty text-muted-foreground">
-          <Link
-            className="text-foreground underline-offset-4 hover:underline"
-            href="/docs/installation"
-          >
-            installation
-          </Link>{" "}
-          covers the cli and <code className="font-mono">mdx-components</code>.{" "}
-          <Link
-            className="text-foreground underline-offset-4 hover:underline"
-            href="/docs/examples"
-          >
-            examples
-          </Link>{" "}
-          are short write-ups with two figures each.{" "}
-          <Link
-            className="text-foreground underline-offset-4 hover:underline"
-            href="/agents"
-          >
-            for agents
-          </Link>{" "}
-          is the skill.{" "}
-          <Link
-            className="text-foreground underline-offset-4 hover:underline"
-            href="/docs/comark"
-          >
-            comark
-          </Link>{" "}
-          and{" "}
-          <Link
-            className="text-foreground underline-offset-4 hover:underline"
-            href="/docs/knap"
-          >
-            knap
-          </Link>{" "}
-          render the same graphs from plain{" "}
-          <code className="font-mono">.md</code>.
+          New here? Start with{" "}
+          <TextLink href="/docs/installation">installation</TextLink> for the
+          CLI and the <code className="font-mono">mdx-components</code> setup.{" "}
+          <TextLink href="/docs/examples">Examples</TextLink> are complete
+          write-ups with two figures each,{" "}
+          <TextLink href="/agents">for agents</TextLink> covers the agent skill,
+          and <TextLink href="/docs/comark">Comark</TextLink> and{" "}
+          <TextLink href="/docs/knap">Knap</TextLink> render the same graphs
+          from plain <code className="font-mono">.md</code> files.
         </p>
       </DocsPageHeader>
 
       <Callout type="tip">
-        the .md tab is the drawing itself: the dashed frame, the title, and the
-        glyphs. paste it into notion or a readme and it looks the same there.
-        the markdown rules are on{" "}
-        <TextLink href="/docs/grammar">grammar</TextLink>.
+        The .md tab is the figure itself: the dashed frame, the title and the
+        glyphs, all as text. Paste it into Notion or a README and it looks the
+        same there. The rules for writing it are on the{" "}
+        <TextLink href="/docs/grammar">grammar</TextLink> page.
       </Callout>
 
       <div className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">install</h2>
         <p className="max-w-[56ch] text-pretty text-muted-foreground">
-          the cli copies a registry item into your repo. you can also copy the
-          files from github.
+          The CLI copies a component into your repo. You can also copy the files
+          from GitHub by hand.
         </p>
         <InstallCommand doc={getComponent("callout")} name="callout" />
       </div>
@@ -135,13 +108,11 @@ export default function DocsPage() {
                 <SiteCorners />
                 <SiteMark className="top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 max-sm:hidden" />
                 <SiteMark className="bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 max-sm:hidden" />
-                <dl className="grid sm:grid-cols-2">
+                <ul className="grid sm:grid-cols-2" role="list">
                   {group.items.map((item, index) => (
-                    <Link
-                      href={`/docs/${item.slug}`}
-                      key={item.slug}
+                    <li
                       className={cn(
-                        "group flex h-full flex-col justify-between gap-3 px-4 py-5 sm:px-6",
+                        "min-w-0",
                         "max-sm:[&:not(:first-child)]:border-t max-sm:[&:not(:first-child)]:border-dashed max-sm:[&:not(:first-child)]:border-site-rail",
                         "sm:[&:nth-child(n+3)]:border-t sm:[&:nth-child(n+3)]:border-dashed sm:[&:nth-child(n+3)]:border-site-rail",
                         "sm:[&:nth-child(odd)]:border-r sm:[&:nth-child(odd)]:border-dashed sm:[&:nth-child(odd)]:border-site-rail",
@@ -149,38 +120,44 @@ export default function DocsPage() {
                           index === group.items.length - 1 &&
                           "sm:col-span-2 sm:[&:nth-child(odd)]:border-r-0"
                       )}
+                      key={item.slug}
                     >
-                      <div className="flex flex-col gap-2">
-                        <dt className="flex items-center gap-2 font-medium text-foreground">
-                          {item.title}
-                          {isNewSlug(item.slug) ? (
-                            <span className="font-mono text-[10px] tracking-wide text-graph-accent">
-                              new
-                            </span>
-                          ) : null}
-                        </dt>
-                        <dd className="max-w-[40ch] text-pretty text-muted-foreground">
-                          {item.description}
-                        </dd>
-                      </div>
-                      <div className="flex items-end justify-between gap-4">
-                        {item.mdx ? (
-                          <code className="graph-scroll-x min-w-0 font-mono text-xs whitespace-nowrap text-graph-muted">
-                            {item.mdx}
-                          </code>
-                        ) : (
-                          <span />
-                        )}
-                        <HugeiconsIcon
-                          className="shrink-0 transition-transform duration-200 ease-out group-hover:translate-x-1"
-                          icon={ArrowRight02Icon}
-                          size={20}
-                          strokeWidth={2}
-                        />
-                      </div>
-                    </Link>
+                      <Link
+                        className="group flex h-full flex-col justify-between gap-3 px-4 py-5 hover:bg-muted/40 sm:px-6"
+                        href={`/docs/${item.slug}`}
+                      >
+                        <div className="flex flex-col gap-2">
+                          <p className="flex items-center gap-2 font-medium text-foreground">
+                            {item.title}
+                            {isNewSlug(item.slug) ? (
+                              <span className="font-mono text-xs tracking-wide text-graph-accent">
+                                new
+                              </span>
+                            ) : null}
+                          </p>
+                          <p className="max-w-[40ch] text-pretty text-muted-foreground">
+                            {item.description}
+                          </p>
+                        </div>
+                        <div className="flex items-end justify-between gap-4">
+                          {item.mdx ? (
+                            <code className="min-w-0 truncate font-mono text-xs text-graph-muted">
+                              {item.mdx}
+                            </code>
+                          ) : (
+                            <span />
+                          )}
+                          <HugeiconsIcon
+                            className="shrink-0 text-muted-foreground transition-transform duration-200 ease-out-cubic group-hover:translate-x-1 group-hover:text-foreground"
+                            icon={ArrowRight02Icon}
+                            size={20}
+                            strokeWidth={2}
+                          />
+                        </div>
+                      </Link>
+                    </li>
                   ))}
-                </dl>
+                </ul>
               </div>
             </section>
           ))}

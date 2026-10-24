@@ -119,10 +119,11 @@ function GraphTick({ className, ...props }: React.ComponentProps<"span">) {
 /**
  * Markdown children inside a frame — paragraphs, lists, inline code, links.
  * MDX renders `<p>` / `<ul>` / `<code>` here; this keeps them quiet and
- * on the mono grid instead of inheriting the page's prose styles.
+ * on the mono grid instead of inheriting the page's prose styles. Block flow,
+ * not flex, so JSX text with an inline link stays on one line.
  */
 const graphProseClass = cn(
-  "flex min-w-0 flex-col gap-3 leading-relaxed",
+  "min-w-0 space-y-3 leading-relaxed",
   "[&_p]:m-0 [&_p]:text-pretty",
   "[&_ul]:m-0 [&_ul]:flex [&_ul]:list-none [&_ul]:flex-col [&_ul]:gap-1 [&_ul]:p-0",
   "[&_ol]:m-0 [&_ol]:flex [&_ol]:list-none [&_ol]:flex-col [&_ol]:gap-1 [&_ol]:p-0",

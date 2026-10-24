@@ -9,12 +9,11 @@ export const SITE_NAME = "mdxcn"
 export const SITE_NAME_SHORT = "mdxcn"
 /** Browser / OG homepage title — what people search for. */
 export const SITE_TITLE = "mdxcn: markdown-friendly components"
-export const SITE_TAGLINE = "markdown-friendly components."
 export const SITE_OG_IMAGE = {
   url: "/og.png",
   width: 1200,
   height: 630,
-  alt: "mdxcn — Beautiful markdown UIs, made simple.",
+  alt: "mdxcn: markdown-friendly components for MDX",
 }
 export const SITE_KEYWORDS = [
   "mdxcn",
@@ -36,7 +35,7 @@ export const SITE_KEYWORDS = [
   "mdxcn api",
 ] as const
 export const SITE_DESCRIPTION =
-  "markdown-friendly react components for mdx. callouts, steps, terminals, charts, and timelines that sit between paragraphs. the shadcn cli copies them into your project. there is no npm package."
+  "React components for MDX docs, drawn with text: callouts, steps, terminals, timelines, tables and charts. Write them as plain Markdown, paste them into a README as text, and install them with the shadcn CLI."
 export const SITE_ALTERNATE_NAMES = [
   "mdxcn.dev",
   "mdxcn",
@@ -45,9 +44,9 @@ export const SITE_ALTERNATE_NAMES = [
   "mdx components",
 ] as const
 export const AGENTS_DESCRIPTION =
-  "a skill and chooser that tell an agent which mdxcn component to put next to the prose, and whether to write mdx, a ::graph-* block, a knap filter, or fenced ascii it can read back later."
+  "An agent skill that tells your agent when a figure helps, which mdxcn graph to use, and how to write it for the file at hand: MDX, a Comark block, a Knap filter or a plain-text figure it can edit later."
 export const DOCS_DESCRIPTION =
-  "markdown-friendly components for mdx. the .md tab is the framed figure, which you can paste into notion or a readme. to render it live, register the component once in mdx-components.tsx."
+  "Every mdxcn component, with live examples. Each one works in MDX as a React component and in READMEs and Notion as a plain-text figure."
 export const SITE_NAV = [
   { href: "/docs", label: "components" },
   { href: "/docs/examples", label: "examples" },
@@ -66,4 +65,4 @@ export const SITE_AUTHOR = {
 
 export const UTM_PARAMS = {
   utm_source: SITE_HOST,
-};
+}

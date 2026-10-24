@@ -86,7 +86,7 @@ function Terminal({
 
   return (
     <Graph className={className} corner={corner} title={title}>
-      <GraphBody className="graph-scroll-x">
+      <GraphBody className="overflow-x-auto overflow-y-hidden">
         <motion.pre
           className="m-0 flex min-w-max flex-col gap-0.5 leading-relaxed whitespace-pre"
           initial={reduce ? false : "hidden"}

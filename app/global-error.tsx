@@ -50,7 +50,7 @@ export default function GlobalError({
               </Button>
             ) : null
           }
-          body="The shell failed to render. Try again."
+          body="The site failed to load. Trying again usually fixes it."
           code="ERROR"
           hint={error.digest}
           title="something broke"

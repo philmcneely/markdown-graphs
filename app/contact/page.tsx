@@ -13,7 +13,7 @@ import { GITHUB_URL } from "@/lib/github"
 import { pageMeta, webPageJsonLd } from "@/lib/seo"
 import { SITE_AUTHOR, SITE_EMAIL } from "@/lib/site"
 
-const description = `Mail ${SITE_EMAIL} for the library and the site. Bugs go to GitHub.`
+const description = `Email ${SITE_EMAIL} about mdxcn. Bugs and pull requests go to GitHub.`
 
 export const metadata: Metadata = pageMeta({
   title: "contact",
@@ -33,7 +33,7 @@ export default function ContactPage() {
       />
       <LandingHero
         actions={[
-          { href: `mailto:${SITE_EMAIL}`, label: "mail keshav" },
+          { href: `mailto:${SITE_EMAIL}`, label: "email keshav" },
           { href: `${GITHUB_URL}/issues`, label: "open an issue" },
         ]}
         figure={

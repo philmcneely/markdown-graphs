@@ -1,17 +1,16 @@
 import type { Metadata } from "next"
-import Link from "next/link"
 
 import { RecipeList } from "@/components/docs/recipe-card"
 import { DocsPageHeader } from "@/components/docs/page-header"
 import { JsonLd } from "@/components/seo/json-ld"
 import { Callout } from "@/components/graphs"
-import { ProseLead } from "@/components/site/prose"
+import { ProseLead, TextLink } from "@/components/site/prose"
 import { recipes, recipeCopy } from "@/lib/docs/recipes"
 import { pageMeta } from "@/lib/seo"
 import { SITE_AUTHOR, SITE_NAME_SHORT, SITE_URL } from "@/lib/site"
 
 const description =
-  "short write-ups with two graphs each. a refactor, an incident, a tradeoff, a pull request."
+  "Six realistic write-ups, each with two figures: a refactor plan, an incident, a tradeoff, a pull request, a weekly update and a migration."
 
 export const metadata: Metadata = pageMeta({
   title: "examples",
@@ -62,9 +61,9 @@ export default function ExamplesPage() {
         }}
         lead={
           <ProseLead>
-            short write-ups with two graphs each. the .md tab is the framed
-            figure, and it looks the same pasted into notion or a readme. each
-            graph has its own page with its props.
+            Six short write-ups, each with two figures, the way you&apos;d use
+            them in a real doc. Copy any of them as MDX, or open a graph&apos;s
+            own page to see all of its props.
           </ProseLead>
         }
         title="examples"
@@ -84,35 +83,18 @@ export default function ExamplesPage() {
       </DocsPageHeader>
 
       <Callout type="tip">
-        copy is the framed figure from the .md tab. paste it into notion or a
-        readme and the drawing is still there.
+        Each figure also has a plain-text version on its .md tab. Paste that
+        into Notion or a README and the drawing comes along intact.
       </Callout>
 
       <RecipeList />
 
       <p className="max-w-[56ch] text-pretty text-muted-foreground">
-        Give this to an agent:{" "}
-        <Link
-          className="text-foreground underline-offset-4 hover:underline"
-          href="/agents"
-        >
-          for agents
-        </Link>
-        . Install:{" "}
-        <Link
-          className="text-foreground underline-offset-4 hover:underline"
-          href="/docs/skill"
-        >
-          skill
-        </Link>
-        . Every graph in one file, including the fenced ASCII blocks:{" "}
-        <Link
-          className="text-foreground underline-offset-4 hover:underline"
-          href="/llms.txt"
-        >
-          /llms.txt
-        </Link>
-        .
+        Want an agent to write figures like these? Read{" "}
+        <TextLink href="/agents">for agents</TextLink>, then install the{" "}
+        <TextLink href="/docs/skill">skill</TextLink>. Every graph, including
+        its plain-text version, is also in a single file at{" "}
+        <TextLink href="/llms.txt">/llms.txt</TextLink>.
       </p>
     </div>
   )

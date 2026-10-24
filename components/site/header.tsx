@@ -21,9 +21,9 @@ function SiteHeader({ stars }: { stars: number | null }) {
   const docs = pathname.startsWith("/docs")
 
   return (
-    <header className="sticky top-0 z-40">
+    <>
       {pathname === "/shadcn-labs" ? null : <LabsBanner />}
-      <div className="relative bg-background/40 backdrop-blur-sm">
+      <header className="sticky top-0 z-40 bg-background/80 backdrop-blur-sm">
         <SiteRule className="bottom-0 z-20" />
         <div className="relative isolate mx-auto w-full max-w-6xl min-w-0 px-4 sm:px-6 lg:px-8">
           <SiteRule className="left-0 z-20" orientation="y" />
@@ -32,8 +32,8 @@ function SiteHeader({ stars }: { stars: number | null }) {
           {docs ? (
             <SiteMark className="bottom-0 left-64 -translate-x-1/2 translate-y-1/2 max-lg:hidden" />
           ) : null}
-          <div className="flex items-center justify-between gap-4 py-4">
-            <div className="flex items-center gap-4">
+          <div className="flex h-16 items-center justify-between gap-4">
+            <div className="flex items-center gap-6">
               <Link
                 aria-label="Homepage"
                 className="flex shrink-0 items-center gap-2.5 text-foreground"
@@ -48,7 +48,10 @@ function SiteHeader({ stars }: { stars: number | null }) {
                   {SITE_NAV.map((item) => (
                     <li key={item.href}>
                       <Link
-                        className="text-muted-foreground hover:text-foreground"
+                        aria-current={
+                          pathname === item.href ? "page" : undefined
+                        }
+                        className="text-muted-foreground hover:text-foreground aria-[current=page]:text-foreground"
                         href={item.href}
                       >
                         {item.label}
@@ -59,76 +62,75 @@ function SiteHeader({ stars }: { stars: number | null }) {
               </nav>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 sm:gap-2">
               <ThemeToggle />
               <SiteSearch />
               <GithubStarLink className="max-lg:hidden" stars={stars} />
+              <MobileMenu stars={stars} />
             </div>
           </div>
         </div>
-        <Dialog.Root>
-          <Dialog.Trigger
-            nativeButton={false}
-            render={<HeaderButton className="lg:hidden" label="Open menu" />}
-          >
-            <HugeiconsIcon
-              className="size-5 shrink-0"
-              icon={MenuIcon}
-              size={20}
-              strokeWidth={1.5}
-            />
-          </Dialog.Trigger>
-          <Dialog.Portal>
-            <Dialog.Popup
-              className={cn(
-                "graph-motion fixed inset-0 z-50 flex flex-col gap-10 bg-background p-4",
-                "origin-top-right transition-[opacity,transform] duration-200 ease-out-cubic",
-                "data-starting-style:scale-95 data-starting-style:opacity-0",
-                "data-ending-style:scale-95 data-ending-style:opacity-0 data-ending-style:duration-150"
-              )}
-            >
-              <div className="flex items-center justify-between">
-                <Dialog.Title className="text-foreground">menu</Dialog.Title>
-                <Dialog.Close
-                  nativeButton={false}
-                  render={<HeaderButton label="Close menu" />}
-                >
-                  <HugeiconsIcon
-                    className="size-5 shrink-0"
-                    icon={Cancel01Icon}
-                    size={20}
-                    strokeWidth={1.5}
-                  />
-                </Dialog.Close>
-              </div>
-              <ul className="flex flex-col gap-6" role="list">
-                {SITE_NAV.map((item) => (
-                  <li key={item.href}>
-                    <Dialog.Close
-                      nativeButton={false}
-                      render={
-                        <Link
-                          className="text-2xl text-foreground"
-                          href={item.href}
-                        />
-                      }
-                    >
-                      {item.label}
-                    </Dialog.Close>
-                  </li>
-                ))}
+      </header>
+    </>
+  )
+}
 
-                <li>
-                  <div className="text-2xl">
-                    <GithubStarLink stars={stars} />
-                  </div>
+function MobileMenu({ stars }: { stars: number | null }) {
+  return (
+    <Dialog.Root>
+      <Dialog.Trigger
+        render={<HeaderButton className="lg:hidden" label="Open menu" />}
+      >
+        <HugeiconsIcon
+          className="size-5 shrink-0"
+          icon={MenuIcon}
+          size={20}
+          strokeWidth={1.5}
+        />
+      </Dialog.Trigger>
+      <Dialog.Portal>
+        <Dialog.Popup
+          className={cn(
+            "graph-motion fixed inset-0 z-50 flex flex-col gap-10 overflow-y-auto overscroll-contain bg-background px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:px-6",
+            "origin-top-right transition-[opacity,transform] duration-200 ease-out-cubic",
+            "data-starting-style:scale-95 data-starting-style:opacity-0",
+            "data-ending-style:scale-95 data-ending-style:opacity-0 data-ending-style:duration-150"
+          )}
+        >
+          <div className="flex h-8 items-center justify-between">
+            <Dialog.Title className="text-foreground">menu</Dialog.Title>
+            <Dialog.Close render={<HeaderButton label="Close menu" />}>
+              <HugeiconsIcon
+                className="size-5 shrink-0"
+                icon={Cancel01Icon}
+                size={20}
+                strokeWidth={1.5}
+              />
+            </Dialog.Close>
+          </div>
+          <nav aria-label="Primary">
+            <ul className="flex flex-col gap-6" role="list">
+              {SITE_NAV.map((item) => (
+                <li key={item.href}>
+                  <Dialog.Close
+                    nativeButton={false}
+                    render={
+                      <Link
+                        className="text-2xl text-foreground"
+                        href={item.href}
+                      />
+                    }
+                  >
+                    {item.label}
+                  </Dialog.Close>
                 </li>
-              </ul>
-            </Dialog.Popup>
-          </Dialog.Portal>
-        </Dialog.Root>
-      </div>
-    </header>
+              ))}
+            </ul>
+          </nav>
+          <GithubStarLink className="-ml-2.5 self-start" stars={stars} />
+        </Dialog.Popup>
+      </Dialog.Portal>
+    </Dialog.Root>
   )
 }
 

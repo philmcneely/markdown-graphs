@@ -23,7 +23,7 @@ const extra = `## install
 
 pnpm dlx shadcn@latest add @mdxcn/all
 
-The filters are graph-knap. all.json already includes them. Install knap yourself.
+The filters ship as graph-knap. If you installed all.json, you already have them. Knap itself is a separate package:
 
 pnpm add knap
 
@@ -41,7 +41,7 @@ npx knap render uses standardFilters only. Custom graph filters exist in createE
 
 ## hosts
 
-The output is Markdown. GitHub and a README can open the fence. A Comark app can open ::graph-* if you asked for comark.`
+The output is plain Markdown, so GitHub and READMEs show the text figure as is. If you asked for comark output, a Comark app renders the ::graph-* block.`
 
 export const metadata: Metadata = pageMeta({
   title: "knap",
@@ -69,10 +69,11 @@ export default function KnapDocsPage() {
         kicker="graph-knap"
         lead={
           <ProseLead>
-            pipe graph props through a <InlineCode>graph_*</InlineCode> filter;{" "}
-            <TextLink href={KNAP_URL}>knap</TextLink> renders markdown and these
-            filters draw the official fence, or a{" "}
-            <InlineCode>::graph-*</InlineCode> block.
+            Turn data into figures inside a{" "}
+            <TextLink href={KNAP_URL}>Knap</TextLink> template. Pipe your data
+            through a <InlineCode>graph_*</InlineCode> filter and it prints the
+            plain-text figure, or a <InlineCode>::graph-*</InlineCode> block if
+            you&apos;re rendering with Comark.
           </ProseLead>
         }
         title="knap"
@@ -81,12 +82,12 @@ export default function KnapDocsPage() {
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">install</h2>
         <ProseP>
-          three names: <TextLink href={KNAP_URL}>knap</TextLink> is the
-          templating language (<InlineCode>pnpm add knap</InlineCode>).{" "}
-          <InlineCode>graph-knap</InlineCode> is the filter pack you copy from
-          this registry. <InlineCode>graph_*</InlineCode> is what you write in
-          templates. copy the graphs first; <InlineCode>all.json</InlineCode>{" "}
-          already includes the filters.
+          Three names are involved. <TextLink href={KNAP_URL}>Knap</TextLink> is
+          the templating language, installed from npm.{" "}
+          <InlineCode>graph-knap</InlineCode> is the set of filters you copy
+          from this registry, and <InlineCode>graph_*</InlineCode> is what you
+          type in templates. Install the graphs first;{" "}
+          <InlineCode>all.json</InlineCode> already includes the filters.
         </ProseP>
         <InstallCommand name="graph-knap" />
         <Command label="knap" value="pnpm add knap" />
@@ -95,12 +96,13 @@ export default function KnapDocsPage() {
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">wire</h2>
         <ProseP>
-          Spread <InlineCode>graphFilters</InlineCode> into{" "}
-          <InlineCode>createEngine</InlineCode> next to{" "}
-          <InlineCode>standardFilters</InlineCode>. Filters are synchronous.
-          They read <InlineCode>context.rawValue</InlineCode> so arrays stay
-          arrays. The <TextLink href={KNAP_URL}>Knap</TextLink> CLI does not
-          load custom filters.
+          Add <InlineCode>graphFilters</InlineCode> to{" "}
+          <InlineCode>createEngine</InlineCode> alongside{" "}
+          <InlineCode>standardFilters</InlineCode>. The filters run
+          synchronously and read <InlineCode>context.rawValue</InlineCode>, so
+          arrays reach them as arrays rather than strings. The{" "}
+          <TextLink href={KNAP_URL}>Knap</TextLink> CLI doesn&apos;t load custom
+          filters, so this only works through the engine.
         </ProseP>
         <CopyBlock label="engine" value={KNAP_WIRE} />
         <Command label="subset" value={KNAP_SUBSET} />
@@ -109,9 +111,9 @@ export default function KnapDocsPage() {
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">author</h2>
         <ProseP>
-          Piped value is the same props object as the React API. A string param
-          is the title. Every docs page has a Knap tab with a copy-paste
-          template, the JSON, and the Markdown it emits.
+          The value you pipe in is the same props object the React component
+          takes, and a string argument sets the title. Every component page has
+          a Knap tab with a template, sample JSON, and the Markdown it produces.
         </ProseP>
         <CopyBlock
           label="template"
@@ -126,24 +128,24 @@ export default function KnapDocsPage() {
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">format</h2>
         <ProseP>
-          Default output is the official fenced ASCII. Pass{" "}
-          <InlineCode>comark</InlineCode> to emit a{" "}
+          By default a filter prints the plain-text figure in a code block. Pass{" "}
+          <InlineCode>comark</InlineCode> to get a{" "}
           <InlineCode>::graph-*</InlineCode> block instead. Flow, Plot,
-          Activity, Heatmap, Calendar, Timer, and Countdown have no ASCII, so
-          they emit Comark YAML unless you only wanted a fence, in which case
-          pick another graph.
+          Activity, Heatmap, Calendar, Timer and Countdown have no plain-text
+          version, so they always print Comark YAML. If you need text output,
+          pick a different graph.
         </ProseP>
       </section>
 
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">validate</h2>
         <ProseP>
-          Merge <InlineCode>graphFilterMetadata</InlineCode> into{" "}
-          <InlineCode>validateFilters</InlineCode> so unknown{" "}
-          <InlineCode>graph_*</InlineCode> names fail the same way unknown
-          standard filters do. Limits, resolvers, and{" "}
-          <InlineCode>allowRegex</InlineCode> stay{" "}
-          <TextLink href={KNAP_API_URL}>Knap&apos;s</TextLink>.
+          Pass <InlineCode>graphFilterMetadata</InlineCode> to{" "}
+          <InlineCode>validateFilters</InlineCode> and a misspelled{" "}
+          <InlineCode>graph_*</InlineCode> name is reported just like an unknown
+          standard filter. Limits, resolvers and{" "}
+          <InlineCode>allowRegex</InlineCode> are configured in{" "}
+          <TextLink href={KNAP_API_URL}>Knap</TextLink> as usual.
         </ProseP>
         <CopyBlock
           label="editor"
@@ -161,11 +163,10 @@ const filterErrors = validateFilters(parsed.ast, {
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">hosts</h2>
         <ProseP>
-          The result is Markdown. GitHub, Linear, Obsidian, and a README can
-          open the fence. A Comark app can open{" "}
-          <InlineCode>::graph-*</InlineCode> if you asked for it.{" "}
-          <TextLink href={KNAP_REPO}>obsidianmd/knap</TextLink> is the language;{" "}
-          <InlineCode>graph-knap</InlineCode> is the filter pack.
+          The output is plain Markdown, so GitHub, Linear, Obsidian and READMEs
+          all show the text figure as is. If you asked for Comark output, a
+          Comark app renders the <InlineCode>::graph-*</InlineCode> block. Knap
+          itself lives at <TextLink href={KNAP_REPO}>obsidianmd/knap</TextLink>.
         </ProseP>
       </section>
     </div>

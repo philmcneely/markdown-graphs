@@ -65,8 +65,9 @@ function HomeGraphDemos() {
             pick a palette, copy the component
           </h2>
           <p className="max-w-[56ch] leading-relaxed text-pretty text-foreground/88">
-            every graph uses text glyphs, your theme tokens, and one shared
-            frame. try an accent below, then copy the component you need.
+            Every graph is drawn with text glyphs inside the same dashed frame,
+            and takes its colors from your theme. Pick an accent below and the
+            demos repaint, the same way the copied component will in your app.
           </p>
         </div>
         <AccentPicker />
@@ -161,7 +162,7 @@ function HomeGraphDemos() {
             className="text-foreground underline-offset-4 hover:underline"
             href="/docs"
           >
-            library
+            all components
           </Link>
           <Link
             className="text-foreground underline-offset-4 hover:underline"

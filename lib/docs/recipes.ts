@@ -25,7 +25,7 @@ export const recipes: Recipe[] = [
     title: "refactor",
     blurb: "Old path, new path, then the weeks.",
     story:
-      "You're moving auth checks out of handlers. Show the request path first, then the work in order, with the current week marked.",
+      "You're moving auth checks out of the route handlers and into middleware. Show the request path before and after, then the plan week by week, with the current week highlighted.",
     tags: ["plan"],
     featured: true,
     graphs: [
@@ -58,7 +58,7 @@ request → **middleware** → handler
     title: "incident",
     blurb: "What happened, and which days took the hit.",
     story:
-      "p95 crossed the line, you rolled back a flag, and the postmortem is still open. The strip is the two days people felt it.",
+      "Latency spiked, you rolled back a feature flag, and the postmortem isn't written yet. The timeline tells the story, and the uptime strip shows the two days users actually noticed.",
     tags: ["debug"],
     featured: true,
     graphs: [
@@ -90,7 +90,7 @@ request → **middleware** → handler
     title: "pick one",
     blurb: "A matrix, then the sizes if they matter.",
     story:
-      "You're choosing a queue. Checks and dashes first. Bundle size only if that's part of the argument.",
+      "You're choosing between two job queues. Lead with what each one supports, and only add bundle sizes if size is part of the decision.",
     tags: ["tradeoff"],
     graphs: [
       {
@@ -125,7 +125,7 @@ request → **middleware** → handler
     title: "pull request",
     blurb: "What moved, and what the numbers did.",
     story:
-      "A review comment with a file list and a coverage slope. The reader shouldn't have to open the diff to get the shape.",
+      "A pull request summary with the files that changed and how coverage moved. A reviewer should understand the change before opening the diff.",
     tags: ["ship"],
     graphs: [
       {
@@ -157,7 +157,7 @@ request → **middleware** → handler
     title: "this week",
     blurb: "Overlapping work, then the board counts.",
     story:
-      "Monday stand-up. The track is the calendar. The numbers are what's in review, blocked, and already shipped.",
+      "A Monday stand-up note. The chart lays out the week's overlapping work, and the counts show what's in review, what's blocked, and what already shipped.",
     tags: ["plan"],
     graphs: [
       {
@@ -189,7 +189,7 @@ request → **middleware** → handler
     title: "migration",
     blurb: "How far the job is, and the count behind it.",
     story:
-      "A backfill that's still running. The fill is the share. The figure is the row count, with the last points of the job underneath.",
+      "A data backfill that's still running. The meter shows how far along it is, and the second figure gives the row count with a sparkline of recent progress.",
     tags: ["ship"],
     graphs: [
       {

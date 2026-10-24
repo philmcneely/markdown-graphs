@@ -7,7 +7,7 @@ import { PRIVACY_PARAS } from "@/lib/agent/copy"
 import { pageMeta, webPageJsonLd } from "@/lib/seo"
 
 const description =
-  "No accounts. Vercel Analytics on the site. Public GitHub star count. Mail is ordinary email."
+  "No accounts, page-view analytics from Vercel, and a public GitHub star count. That's the whole list."
 
 export const metadata: Metadata = pageMeta({
   title: "privacy",

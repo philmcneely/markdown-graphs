@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useCallback, useSyncExternalStore } from "react"
 
 export function parseInstant(value: Date | number | string) {
   if (value instanceof Date) {
@@ -61,14 +61,19 @@ export function formatClock(ms: number) {
   return `${pad2(date.getHours())}:${pad2(date.getMinutes())}:${pad2(date.getSeconds())}`
 }
 
+/** Wall clock floored to `interval`. Null on the server and first paint. */
 export function useGraphNow(interval = 1000) {
-  const [now, setNow] = useState<number | null>(null)
+  const subscribe = useCallback(
+    (tick: () => void) => {
+      const id = window.setInterval(tick, interval)
+      return () => window.clearInterval(id)
+    },
+    [interval]
+  )
 
-  useEffect(() => {
-    setNow(Date.now())
-    const id = window.setInterval(() => setNow(Date.now()), interval)
-    return () => window.clearInterval(id)
-  }, [interval])
-
-  return now
+  return useSyncExternalStore<number | null>(
+    subscribe,
+    () => Math.floor(Date.now() / interval) * interval,
+    () => null
+  )
 }

@@ -124,7 +124,7 @@ function Annotate({
     >
       <GraphBody className="flex flex-col gap-5">
         <motion.div
-          className="graph-scroll-x"
+          className="overflow-x-auto overflow-y-hidden"
           initial={reduce ? false : "hidden"}
           variants={item}
           viewport={{ once: true, amount: 0.3 }}

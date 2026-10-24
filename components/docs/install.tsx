@@ -4,7 +4,9 @@ import { useLayoutEffect, useRef, useState } from "react"
 
 import { CopyMark, useCopied } from "@/components/docs/copy-button"
 import { MonoLabel } from "@/components/docs/mono-label"
+import { SegmentedTabs } from "@/components/docs/segmented-tabs"
 import { FrameBox } from "@/components/site/corners"
+import { HitArea } from "@/components/site/hit-area"
 import { InlineCode, ProseP, TextLink } from "@/components/site/prose"
 import { useAccent } from "@/hooks/use-accent"
 import { useOrigin } from "@/lib/docs/origin"
@@ -19,7 +21,6 @@ import { GITHUB_TREE, GITHUB_URL } from "@/lib/github"
 import { scopedRegistryInstall } from "@/lib/site"
 import { addQueryParams } from "@/lib/url"
 import { UTM_PARAMS } from "@/lib/site"
-import { cn } from "@/lib/utils"
 
 type InstallTab =
   "cli" | "mdx" | "manual" | "agent" | "markdown" | "comark" | "knap"
@@ -72,31 +73,12 @@ function InstallCommand({ name, doc, example }: InstallCommandProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      <div
-        aria-label="install method"
-        className="flex flex-wrap items-center gap-1"
-        role="tablist"
-      >
-        {tabs.map(([id, label]) => (
-          <button
-            key={id}
-            aria-selected={tab === id}
-            className={cn(
-              "relative px-2 py-1 text-muted-foreground hover:text-foreground",
-              tab === id && "bg-muted text-foreground"
-            )}
-            onClick={() => setTab(id)}
-            role="tab"
-            type="button"
-          >
-            <span
-              aria-hidden="true"
-              className="absolute top-1/2 left-1/2 size-[max(100%,3rem)] -translate-1/2 pointer-fine:hidden"
-            />
-            {label}
-          </button>
-        ))}
-      </div>
+      <SegmentedTabs
+        label="install method"
+        onValueChange={setTab}
+        tabs={tabs}
+        value={tab}
+      />
       {tab === "cli" ? (
         <CliInstall name={name} />
       ) : tab === "mdx" && doc ? (
@@ -142,8 +124,8 @@ function ManualInstall({ name }: { name: string }) {
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
         <p className="text-pretty text-muted-foreground">
-          install <code className="font-mono">motion</code>, paste the css, then
-          copy these files from the repo.
+          Install <code className="font-mono">motion</code>, add the CSS to your
+          global stylesheet, then copy these files from the repo.
         </p>
         <Command label="dependency" value="pnpm add motion" />
       </div>
@@ -213,14 +195,15 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
   return (
     <div className="flex flex-col gap-6">
       <ProseP>
-        register the parent once in <InlineCode>mdx-components.tsx</InlineCode>
+        Register the component once in{" "}
+        <InlineCode>mdx-components.tsx</InlineCode>
         {names.length > 1 ? (
           <>
             , along with <InlineCode>{names.slice(1).join(", ")}</InlineCode>
           </>
         ) : null}
-        . lists and tables inside the tag do not need extra imports. for notion
-        or a readme, paste the .md tab from the example instead.
+        . Lists and tables inside the tag don&apos;t need imports of their own.
+        For Notion or a README, paste the .md tab from the example instead.
       </ProseP>
       <CopyBlock label="mdx-components.tsx" value={register} />
       {example ? <CopyBlock label="page.mdx" value={example} /> : null}
@@ -232,10 +215,11 @@ function MarkdownInstall({ markdown }: { markdown: string }) {
   return (
     <div className="flex flex-col gap-6">
       <ProseP>
-        paste this code block anywhere that cannot import the component: a
-        readme, github, linear, a pr comment, or a plain{" "}
-        <InlineCode>.md</InlineCode> file. monospace keeps the frame aligned.
-        change the labels, keep the frame, and do not draw a new figure.
+        Paste this code block anywhere that can&apos;t import the component: a
+        README, a GitHub or Linear comment, a pull request, or a plain{" "}
+        <InlineCode>.md</InlineCode> file. The code block&apos;s monospace font
+        keeps the frame lined up. Edit the labels and values, but keep the frame
+        as it is.
       </ProseP>
       <CopyBlock label="markdown" value={markdown} />
     </div>
@@ -246,10 +230,10 @@ function ComarkInstall({ markdown }: { markdown: string }) {
   return (
     <div className="flex flex-col gap-6">
       <ProseP>
-        paste this into a <InlineCode>.md</InlineCode> file that a{" "}
-        <TextLink href={COMARK_URL}>comark</TextLink> app will render. yaml
-        props match the react api. github and linear do not run comark, so they
-        still need the code block from the .md tab. wiring is on{" "}
+        Paste this into a <InlineCode>.md</InlineCode> file rendered by a{" "}
+        <TextLink href={COMARK_URL}>Comark</TextLink> app. The YAML props are
+        the same as the React props. GitHub and Linear don&apos;t run comark, so
+        they still need the code block from the .md tab. Setup is covered in{" "}
         <TextLink href="/docs/comark">/docs/comark</TextLink>.
       </ProseP>
       <CopyBlock label="comark" value={markdown} />
@@ -269,12 +253,12 @@ function KnapInstall({
   return (
     <div className="flex flex-col gap-6">
       <ProseP>
-        pipe the graph props through a <TextLink href={KNAP_URL}>knap</TextLink>{" "}
-        filter. the output is the official fence (or a{" "}
-        <InlineCode>::graph-*</InlineCode> block when the figure has no ascii).
-        wire <InlineCode>graphFilters</InlineCode> in{" "}
-        <TextLink href="/docs/knap">/docs/knap</TextLink>. the knap cli does not
-        load them.
+        Pass your data through a <TextLink href={KNAP_URL}>Knap</TextLink>{" "}
+        filter and it prints the plain-text figure, or a{" "}
+        <InlineCode>::graph-*</InlineCode> block for graphs that have no text
+        version. Register <InlineCode>graphFilters</InlineCode> as shown in{" "}
+        <TextLink href="/docs/knap">/docs/knap</TextLink>; the knap CLI
+        doesn&apos;t load them on its own.
       </ProseP>
       <CopyBlock label="template" value={template} />
       <CopyBlock label="data" value={data} />
@@ -297,10 +281,7 @@ function CopyToggle({
         onClick={onClick}
         type="button"
       >
-        <span
-          aria-hidden="true"
-          className="absolute top-1/2 left-1/2 size-[max(100%,3rem)] -translate-1/2 pointer-fine:hidden"
-        />
+        <HitArea />
         {label}
       </button>
     </div>
@@ -386,7 +367,7 @@ function Command({ label, value }: { label: string; value: string }) {
         tone="rail"
         type="button"
       >
-        <pre className="graph-scroll-x min-w-0 flex-1 text-muted-foreground">
+        <pre className="min-w-0 flex-1 wrap-anywhere whitespace-pre-wrap text-muted-foreground sm:graph-scroll-x sm:whitespace-pre">
           <code>{value}</code>
         </pre>
         <CopyMark copied={copied} />

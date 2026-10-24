@@ -15,7 +15,7 @@ export type GrammarRule = {
 }
 
 export const GRAMMAR_DESCRIPTION =
-  "The Markdown every mdxcn component reads. Bold is now, italic is next, label: value is a row, and '— note' is a side note. The same grammar works as MDX children, a Comark block body, a Knap body, and the fenced ASCII."
+  "The Markdown rules every mdxcn component understands. Bold marks what's current, italics mark what's next, label: value makes a row, and '— note' adds a side note. The same rules work in MDX, Comark, Knap and the plain-text figures."
 
 export const GRAMMAR: GrammarRule[] = [
   {

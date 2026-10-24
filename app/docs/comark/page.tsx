@@ -23,7 +23,7 @@ const extra = `## install
 
 pnpm dlx shadcn@latest add @mdxcn/all
 
-The adapter is graph-comark. all.json already includes it.
+The adapter is graph-comark. If you installed all.json, you already have it.
 
 ## wire
 
@@ -31,7 +31,7 @@ ${COMARK_WIRE}
 
 ## coerce
 
-Markdown attributes are strings. {value=0.86} arrives as "0.86". arrays and objects survive YAML. coerceProps turns listed numeric props into numbers, maps class to className, and strips a leading colon from Vue-style keys.
+Markdown attributes are always strings, so {value=0.86} arrives as "0.86". Arrays and objects in YAML keep their types. coerceProps turns listed numeric props into numbers, maps class to className, and strips a leading colon from Vue-style keys.
 
 ## stream
 
@@ -67,26 +67,29 @@ export default function ComarkDocsPage() {
         kicker="graph-comark"
         lead={
           <ProseLead>
-            author figures as <InlineCode>::graph-*</InlineCode> blocks in plain
-            markdown; <TextLink href={COMARK_URL}>comark</TextLink> parses the
-            file and these graphs draw the frames. there is no mdx compile step.
+            Write figures as <InlineCode>::graph-*</InlineCode> blocks in plain
+            Markdown. <TextLink href={COMARK_URL}>Comark</TextLink> parses the
+            file and these graphs draw the frames, so there&apos;s no MDX
+            compile step anywhere.
           </ProseLead>
         }
         title="comark"
       >
         <ProseMuted>
-          Landing and live pair: <TextLink href="/comark">/comark</TextLink>.
-          Full catalog demo:{" "}
-          <TextLink href={COMARK_DEMO_URL}>comark-demo</TextLink>.
+          For a side-by-side of source and output, see{" "}
+          <TextLink href="/comark">/comark</TextLink>. Every graph rendered
+          through Comark is in the{" "}
+          <TextLink href={COMARK_DEMO_URL}>comark demo</TextLink>.
         </ProseMuted>
       </DocsPageHeader>
 
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">install</h2>
         <ProseP>
-          copy the graphs first. <InlineCode>all.json</InlineCode> already
-          includes the adapter. if the graphs are already in the repo, adding{" "}
-          <InlineCode>graph-comark</InlineCode> alone is enough.
+          Install the graphs first. <InlineCode>all.json</InlineCode> includes
+          the Comark adapter, so if you used it you&apos;re done. If the graphs
+          are already in your repo, add <InlineCode>graph-comark</InlineCode> on
+          its own.
         </ProseP>
         <InstallCommand name="graph-comark" />
       </section>
@@ -94,11 +97,11 @@ export default function ComarkDocsPage() {
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">wire</h2>
         <ProseP>
-          Parse on the server and pass the document, not the raw string, so the{" "}
-          <TextLink href={COMARK_URL}>Comark</TextLink> parser stays out of the
-          client bundle. The graphs are{" "}
-          <InlineCode>&quot;use client&quot;</InlineCode> because they animate,
-          and they arrive as client references.
+          Parse on the server and pass the parsed document to the client, not
+          the raw string. That keeps the{" "}
+          <TextLink href={COMARK_URL}>Comark</TextLink> parser out of your
+          client bundle. The graphs themselves are client components because
+          they animate.
         </ProseP>
         <CopyBlock label="server" value={COMARK_WIRE} />
         <Command
@@ -115,10 +118,10 @@ const graphComponents = createGraphComponents({
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">author</h2>
         <ProseP>
-          Put YAML props on a <InlineCode>::graph-*</InlineCode> block. They
-          match the React API. Nest figures in{" "}
-          <InlineCode>::row{"{cols=2}"}</InlineCode>. Every docs page has a
-          Comark tab with a copy-paste block.
+          Props go in YAML at the top of a <InlineCode>::graph-*</InlineCode>{" "}
+          block, with the same names as the React props. To put figures side by
+          side, nest them in <InlineCode>::row{"{cols=2}"}</InlineCode>. Every
+          component page has a Comark tab with a block you can copy.
         </ProseP>
         <CopyBlock
           label="markdown"
@@ -136,38 +139,39 @@ caption: 86% of statements
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">coerce</h2>
         <ProseP>
+          Inline Markdown attributes are always strings, so{" "}
           <InlineCode>{"{value=0.86}"}</InlineCode> arrives as{" "}
           <InlineCode>&quot;0.86&quot;</InlineCode>. Arrays and objects in the
-          YAML fence stay typed. <InlineCode>coerceProps</InlineCode> turns
-          listed numeric props into numbers, maps <InlineCode>class</InlineCode>{" "}
-          to <InlineCode>className</InlineCode>, and strips a leading colon from
-          Vue-style keys. <InlineCode>adapters.ts</InlineCode> lists the numeric
-          props for each tag, matching the <InlineCode>number</InlineCode> props
-          in the catalog.
+          YAML block keep their types. <InlineCode>coerceProps</InlineCode>{" "}
+          converts the known numeric props back to numbers, renames{" "}
+          <InlineCode>class</InlineCode> to <InlineCode>className</InlineCode>,
+          and drops the leading colon from Vue-style keys. The list of numeric
+          props for each graph lives in <InlineCode>adapters.ts</InlineCode>.
         </ProseP>
       </section>
 
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">stream</h2>
         <ProseP>
-          Auto-close completes a dangling <InlineCode>::graph-table</InlineCode>
-          , so a half-written tag does not swallow the rest of the page. YAML is
-          all-or-nothing: a timeline grows an event at a time. A prefix that
-          cuts mid-key can throw. Hold the last good tree. Missing required
-          props render an empty frame instead of crashing. Graphs remount when
-          data changes so <InlineCode>once: true</InlineCode> motion does not
-          leave new rows at opacity 0.
+          Graphs work with streamed Markdown, like an LLM response arriving a
+          token at a time. Comark closes an unfinished{" "}
+          <InlineCode>::graph-table</InlineCode> block for you, so it
+          doesn&apos;t swallow the rest of the page. YAML only parses once a
+          value is complete, so a timeline grows one event at a time. If the
+          stream cuts off mid-key the parse can throw, so keep the last tree
+          that parsed. A graph missing a required prop draws an empty frame
+          instead of crashing, and graphs remount when their data changes so new
+          rows still animate in.
         </ProseP>
       </section>
 
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">hosts</h2>
         <ProseP>
-          GitHub, Linear, and a README do not run Comark, so they still get the
-          code block from the .md tab.{" "}
-          <TextLink href={COMARK_URL}>Comark</TextLink> is the renderer;{" "}
-          <TextLink href={COMARK_DEMO_REPO}>the demo repo</TextLink> is the full
-          catalog in one file.
+          GitHub, Linear and READMEs don&apos;t run Comark, so use the
+          plain-text figure from the .md tab there. For a working setup, the{" "}
+          <TextLink href={COMARK_DEMO_REPO}>demo repo</TextLink> renders every
+          graph from a single file.
         </ProseP>
       </section>
     </div>

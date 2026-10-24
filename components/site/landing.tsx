@@ -18,7 +18,6 @@ function LandingHero({
   title,
   lead,
   item,
-  command,
   actions,
   figure,
   split = false,
@@ -26,7 +25,6 @@ function LandingHero({
   title: string
   lead: ReactNode
   item?: string
-  command?: string
   actions?: readonly LandingAction[]
   figure: ReactNode
   split?: boolean
@@ -37,9 +35,7 @@ function LandingHero({
         {title}
       </h1>
       <ProseLead>{lead}</ProseLead>
-      {command != null || item != null ? (
-        <HeroInstall className="max-w-none" command={command} item={item} />
-      ) : null}
+      {item ? <HeroInstall className="w-full" item={item} /> : null}
       {actions && actions.length > 0 ? (
         <div className="flex flex-wrap gap-x-6 gap-y-2">
           {actions.map((action) => (
@@ -134,7 +130,15 @@ function LandingLink({
     className
   )
 
-  if (href.startsWith("http") || href.startsWith("mailto:")) {
+  if (href.startsWith("mailto:")) {
+    return (
+      <a className={cls} href={href}>
+        {children}
+      </a>
+    )
+  }
+
+  if (href.startsWith("http")) {
     return (
       <a
         className={cls}

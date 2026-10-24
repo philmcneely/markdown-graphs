@@ -14,7 +14,7 @@ export const KNAP_API_URL = "https://knap.md/api"
 export const KNAP_REPO = "https://github.com/obsidianmd/knap"
 
 export const KNAP_DESCRIPTION =
-  "Turn data into framed mdxcn figures with Knap filters. Pipe a props object through graph_timeline, graph_meter, … and get the official fence, or a ::graph-* block."
+  "Turn data into framed mdxcn figures with Knap filters. Pipe a props object through graph_timeline, graph_meter, … and get the plain-text figure or a ::graph-* block."
 
 export function isKnapSlug(slug: string): slug is GraphFilterSlug {
   return (GRAPH_FILTER_SLUGS as readonly string[]).includes(slug)
@@ -119,11 +119,11 @@ ${blocks}`
 
 export const KNAP_DEMO_TEMPLATE = `# {{ title }}
 
-p95 crossed 800ms at {{ start }}. Rollback at {{ rollback }}.
+Latency crossed 800ms at {{ start }}, and we rolled back at {{ rollback }}.
 
 {{ events | graph_timeline:"NIGHT" }}
 
-Same night. Two days users felt it.
+Users noticed it on two days that week.
 
 {{ uptime | graph_uptime }}`
 

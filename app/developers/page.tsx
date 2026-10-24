@@ -19,7 +19,7 @@ import { developersJsonLd, pageMeta } from "@/lib/seo"
 import { cn } from "@/lib/utils"
 
 const description =
-  "mdxcn developer API. openapi spec, JSON catalog, rate limits, and shadcn CLI install."
+  "The mdxcn developer API: a read-only JSON catalog of every component, with an OpenAPI spec, rate limits and install paths."
 
 export const metadata: Metadata = pageMeta({
   title: "mdxcn api",
@@ -32,9 +32,9 @@ const endpoints = [
     name: "index",
     detail: (
       <>
-        start at <TextLink href="/api/v1">/api/v1</TextLink> for the endpoint
-        list and <TextLink href="/api/v1/health">/api/v1/health</TextLink> for a
-        health check.
+        Start at <TextLink href="/api/v1">/api/v1</TextLink> for the list of
+        endpoints. <TextLink href="/api/v1/health">/api/v1/health</TextLink> is
+        there for uptime checks.
       </>
     ),
   },
@@ -42,9 +42,10 @@ const endpoints = [
     name: "catalog",
     detail: (
       <>
-        the full graph catalog is{" "}
-        <TextLink href="/api/v1/components">/api/v1/components</TextLink>.
-        openapi 3.1 is <TextLink href="/openapi.json">/openapi.json</TextLink>.
+        Every graph, with its props and examples, is at{" "}
+        <TextLink href="/api/v1/components">/api/v1/components</TextLink>. The
+        OpenAPI 3.1 spec is at{" "}
+        <TextLink href="/openapi.json">/openapi.json</TextLink>.
       </>
     ),
   },
@@ -52,10 +53,10 @@ const endpoints = [
     name: "agents",
     detail: (
       <>
-        <TextLink href="/llms.txt">/llms.txt</TextLink> is the chooser plus
-        ascii, comark, and knap blocks.{" "}
-        <TextLink href="/agents.md">/agents.md</TextLink> is the write and read
-        story.
+        <TextLink href="/llms.txt">/llms.txt</TextLink> has the graph guide and
+        every format in one file, and{" "}
+        <TextLink href="/agents.md">/agents.md</TextLink> explains how agents
+        write and read the figures.
       </>
     ),
   },
@@ -117,9 +118,9 @@ export default function DevelopersPage() {
         item="all"
         lead={
           <>
-            a read-only json api for agents and integrators. version 1 lives
-            under <InlineCode>/api/v1/</InlineCode>. no api keys. 1000 get
-            requests per hour. errors are rfc 9457{" "}
+            A read-only JSON API for agents and integrations. Version 1 lives
+            under <InlineCode>/api/v1/</InlineCode>, needs no API key, and
+            allows 1,000 GET requests an hour. Errors come back as RFC 9457{" "}
             <InlineCode>application/problem+json</InlineCode>.
           </>
         }
@@ -179,8 +180,8 @@ export default function DevelopersPage() {
       <LandingSection
         lead={
           <ProseP>
-            install graph source files with the shadcn cli. there is no npm
-            package.
+            The API describes the components; the shadcn CLI installs them.
+            There&apos;s no npm package, so the source lands in your repo.
           </ProseP>
         }
         title="copy the source"

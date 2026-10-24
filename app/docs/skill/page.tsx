@@ -5,6 +5,7 @@ import { CopyBlock } from "@/components/docs/install"
 import { DocsPageHeader } from "@/components/docs/page-header"
 import { SkillInstall } from "@/components/docs/skill-install"
 import { JsonLd } from "@/components/seo/json-ld"
+import { TextLink } from "@/components/site/prose"
 import {
   SKILL_INSTALL,
   skillAgents,
@@ -16,7 +17,7 @@ import { readSkillFile } from "@/lib/docs/skill-files"
 import { skillJsonLd, pageMeta } from "@/lib/seo"
 
 const description =
-  "A SKILL.md that tells the agent which graph to put next to the prose. Same files in Cursor, Claude Code, Codex, OpenCode, or any agent that loads Agent Skills."
+  "A skill file that tells your agent when a figure would help and which graph to use. The same two files work in Cursor, Claude Code, Codex, OpenCode and any other agent that supports Agent Skills."
 
 export const metadata: Metadata = pageMeta({
   title: "skill",
@@ -29,7 +30,7 @@ export default async function SkillPage() {
   const extra = [
     "## install",
     "",
-    "Same two files. Put them in the skills folder your agent already reads.",
+    "The same two files work everywhere. Put them in the skills folder your agent already reads.",
     "",
     ...skillAgents.flatMap((item) => [
       `${item.name}: ${item.project}/${SKILL_INSTALL} (project) or ${item.personal}/${SKILL_INSTALL} (personal)`,
@@ -40,7 +41,7 @@ export default async function SkillPage() {
     "",
     "## what it does",
     "",
-    "When the agent is explaining a path, an incident, a tradeoff, or a PR, it puts at most two framed graphs next to the prose. MDX gets markdown children inside the tag. A Comark app gets a ::graph-* block. A Knap template gets a graph_* filter. A README, GitHub comment, or Linear note gets the official fence from /llms.txt.",
+    "When the agent is explaining a request path, an incident, a tradeoff or a pull request, it adds at most two framed graphs next to the prose. In MDX it writes Markdown inside the tag, in a Comark app a ::graph-* block, in a Knap template a graph_* filter, and in a README, GitHub comment or Linear note the plain-text figure from /llms.txt.",
     "",
     "## files",
     "",
@@ -60,31 +61,22 @@ export default async function SkillPage() {
         title="skill"
       >
         <p className="max-w-prose text-pretty text-muted-foreground">
-          Write vs read, and why this exists:{" "}
-          <Link
-            className="text-foreground underline-offset-4 hover:underline"
-            href="/agents"
-          >
-            for agents
-          </Link>
-          . The graphs themselves still need to be in the project.{" "}
-          <Link
-            className="text-foreground underline-offset-4 hover:underline"
-            href="/docs/installation"
-          >
-            install the components
-          </Link>{" "}
-          first if they are missing.
+          For the bigger picture of how agents write and read these figures, see{" "}
+          <TextLink href="/agents">for agents</TextLink>. The skill doesn&apos;t
+          include the graphs themselves, so{" "}
+          <TextLink href="/docs/installation">install the components</TextLink>{" "}
+          first if your project doesn&apos;t have them yet.
         </p>
       </DocsPageHeader>
 
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">install</h2>
         <p className="max-w-prose text-pretty text-muted-foreground">
-          Project copy travels with the repo. Personal copy is this machine
-          only. The agent picks it up from the description when the writing
-          would scan faster with a figure. If yours watches some other folder,
-          drop the same two files there.
+          A project copy is committed with the repo, so everyone on the team
+          gets it. A personal copy lives only on your machine. Your agent loads
+          the skill when its description matches the task, which is usually when
+          a figure would explain something faster than prose. If your agent
+          reads skills from a different folder, put the same two files there.
         </p>
         <SkillInstall />
       </section>
@@ -92,8 +84,8 @@ export default async function SkillPage() {
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">try it</h2>
         <p className="max-w-prose text-pretty text-muted-foreground">
-          Paste one of these after install. Each should pick two graphs from the
-          chooser and put prose between them.
+          After installing, paste one of these prompts. A good result uses two
+          graphs from the guide, with prose in between.
         </p>
         <div className="flex flex-col gap-6">
           {skillExamples.map((item) => (
@@ -109,8 +101,9 @@ export default async function SkillPage() {
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">when to use</h2>
         <p className="max-w-prose text-pretty text-muted-foreground">
-          Before a wall of bullets, the skill asks if a framed figure would scan
-          faster. Skip it if the whole point is one sentence.
+          Before writing a long list of bullets, the skill checks whether a
+          figure would be quicker to read. If the whole point fits in one
+          sentence, it skips the figure.
         </p>
         <div className="-mx-4 graph-scroll-x sm:-mx-6 lg:-mx-8">
           <div className="min-w-full px-4 sm:px-6 lg:px-8">
@@ -151,28 +144,11 @@ export default async function SkillPage() {
           </div>
         </div>
         <p className="max-w-prose text-pretty text-muted-foreground">
-          Worked write-ups with JSX:{" "}
-          <Link
-            className="text-foreground underline-offset-4 hover:underline"
-            href="/docs/examples"
-          >
-            Examples
-          </Link>
-          . Plain <code className="font-mono">.md</code> in a Comark app:{" "}
-          <Link
-            className="text-foreground underline-offset-4 hover:underline"
-            href="/comark"
-          >
-            Comark
-          </Link>
-          . Data into Markdown with{" "}
-          <Link
-            className="text-foreground underline-offset-4 hover:underline"
-            href="/knap"
-          >
-            Knap
-          </Link>
-          .
+          For complete write-ups, see{" "}
+          <TextLink href="/docs/examples">examples</TextLink>. To render plain{" "}
+          <code className="font-mono">.md</code> in a Comark app, see{" "}
+          <TextLink href="/comark">Comark</TextLink>, and to turn data into
+          Markdown, see <TextLink href="/knap">Knap</TextLink>.
         </p>
       </section>
 
@@ -187,41 +163,22 @@ export default async function SkillPage() {
           ))}
         </ul>
         <p className="max-w-prose text-pretty text-muted-foreground">
-          Do not draw the chart in SVG. Copy the framed figure from the docs MDX
-          tab into Notion or a README. Keep the fence. Wrap markdown children in
-          the parent tag in MDX. In a Comark app, paste a ::graph-* block. In a
-          Knap template, pipe props through a graph_* filter. Do not invent
-          ASCII. Do not restyle the frame. Do not dump every graph into one
-          reply.
+          These are written for the agent, so they read like a checklist. The
+          short version: never draw a chart as SVG, never make up a text figure,
+          don&apos;t restyle the frame, and keep each section to two graphs at
+          most.
         </p>
       </section>
 
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">the file</h2>
         <p className="max-w-prose text-pretty text-muted-foreground">
-          This is what the agent loads.{" "}
-          <Link
-            className="text-foreground underline-offset-4 hover:underline"
-            href="/skill.md"
-          >
-            /skill.md
-          </Link>{" "}
-          and{" "}
-          <Link
-            className="text-foreground underline-offset-4 hover:underline"
-            href="/skill/recipes.md"
-          >
-            /skill/recipes.md
-          </Link>{" "}
-          stay in sync with the repo.{" "}
-          <Link
-            className="text-foreground underline-offset-4 hover:underline"
-            href="/llms.txt"
-          >
-            /llms.txt
-          </Link>{" "}
-          is the chooser plus the MDX ASCII blocks, the Comark blocks, and the
-          Knap filters if the skill is not installed.
+          This is exactly what the agent loads.{" "}
+          <TextLink href="/skill.md">/skill.md</TextLink> and{" "}
+          <TextLink href="/skill/recipes.md">/skill/recipes.md</TextLink> always
+          match the repo. If the skill isn&apos;t installed,{" "}
+          <TextLink href="/llms.txt">/llms.txt</TextLink> has the same guide
+          along with every format.
         </p>
         <CopyBlock label="skill.md" value={source} />
       </section>

@@ -7,7 +7,7 @@ import { DEPRECATION_PARAS } from "@/lib/agent/copy"
 import { pageMeta, webPageJsonLd } from "@/lib/seo"
 
 const description =
-  "mdxcn API versioning and deprecation. URL version prefixes, Sunset headers, and six-month notice."
+  "How the mdxcn API is versioned and retired: URL version prefixes, Sunset headers and six months' notice."
 
 export const metadata: Metadata = pageMeta({
   title: "api deprecation",

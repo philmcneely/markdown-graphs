@@ -21,32 +21,34 @@ export const CATEGORIES: { id: Category; label: string; blurb: string }[] = [
     id: "content",
     label: "content",
     blurb:
-      "markdown children. callouts, steps, a shell, a release, code notes, a decision, a chat, env, an endpoint, keys, a faq.",
+      "Markdown you'd write anyway, framed: callouts, steps, shell sessions, release notes, code notes, decisions, chats, env files, API routes, shortcuts and FAQs.",
   },
   {
     id: "diagrams",
     label: "diagrams",
-    blurb: "paths, trees, timelines, schedules, boards. written as children.",
+    blurb:
+      "Paths, trees, timelines, schedules and boards, written as lists inside the tag.",
   },
   {
     id: "data",
     label: "data",
-    blurb: "numbers with labels. stats, specs, tables, diffs.",
+    blurb: "Numbers with labels: stats, specs, tables and diffs.",
   },
   {
     id: "charts",
     label: "charts",
-    blurb: "glyphs on a track. ranks, meters, sparks, grids.",
+    blurb: "Glyphs on a track: rankings, meters, sparklines and grids.",
   },
   {
     id: "time",
     label: "time",
-    blurb: "days and clocks. uptime, a month, elapsed, remaining.",
+    blurb:
+      "Days and clocks: uptime, a month view, elapsed time and countdowns.",
   },
   {
     id: "primitives",
     label: "primitives",
-    blurb: "the frame every component is drawn in.",
+    blurb: "The frame every component is drawn in.",
   },
 ]
 
@@ -104,7 +106,7 @@ const content: CatalogEntry[] = [
     title: "callout",
     name: "Callout",
     description:
-      "An aside between paragraphs, like a caveat, a tip, or a warning. The body is Markdown. A quote is Quote.",
+      "An aside between paragraphs: a caveat, a tip or a warning. The body is regular Markdown. For something another person said, use Quote.",
     registry: "callout",
     dependencies: ["motion"],
     props: [
@@ -129,7 +131,7 @@ const content: CatalogEntry[] = [
     title: "quote",
     name: "Quote",
     description:
-      "Someone else's sentence, with a name under it. Your own caveat is Callout.",
+      "A sentence someone else said, with their name underneath. For your own caveat, use Callout.",
     registry: "quote",
     dependencies: ["motion"],
     props: [
@@ -158,7 +160,7 @@ const content: CatalogEntry[] = [
     title: "steps",
     name: "Steps",
     description:
-      "A numbered procedure. Write an ordered list; bold the current step, italic the next. Dated events are Timeline. A punch list is Check.",
+      "A numbered procedure. Write an ordered list, bold the current step and italicize the next one. For dated events use Timeline, and for a to-do list use Check.",
     registry: "steps",
     dependencies: ["motion"],
     mdx: "1. **Register it**\n\n   Export it from mdx-components.",
@@ -183,7 +185,7 @@ const content: CatalogEntry[] = [
     title: "terminal",
     name: "Terminal",
     description:
-      "A shell session. `$` is a command, `#` a comment, `✓` a pass. Source code stays in a fence. A file tree is Tree.",
+      "A shell session. Lines starting with `$` are commands, `#` marks a comment and `✓` a passing check. Source code stays in a normal code block, and a file tree is Tree.",
     registry: "terminal",
     dependencies: ["motion"],
     props: [
@@ -214,7 +216,7 @@ const content: CatalogEntry[] = [
     title: "changelog",
     name: "Changelog",
     description:
-      "One release. A markdown list: `added:`, `changed:`, `fixed:`, `removed:`. Numeric deltas are Diff.",
+      "One release, written as a Markdown list of `added:`, `changed:`, `fixed:` and `removed:` items. For numeric before-and-after changes, use Diff.",
     registry: "changelog",
     dependencies: ["motion"],
     mdx: "- added: Callout, Steps, Terminal",
@@ -250,7 +252,7 @@ const content: CatalogEntry[] = [
     title: "annotate",
     name: "Annotate",
     description:
-      "Code with numbered notes. Put `// (1)` at the end of a line in the fence, then explain it in an ordered list. Marked lines stay bright; the rest recede. A shell session is Terminal.",
+      "Code with numbered notes. End a line in the code block with `// (1)`, then explain it in an ordered list underneath. Marked lines stay bright and the rest fade. For a shell session, use Terminal.",
     registry: "annotate",
     dependencies: ["motion"],
     mdx: "```tsx\nconst x = 1 // (1)\n```\n\n1. Why x is 1.",
@@ -285,7 +287,7 @@ const content: CatalogEntry[] = [
     title: "decision",
     name: "Decision",
     description:
-      "One decision and the options next to it. Bold is chosen, italic is rejected, `— why` after each. Paragraphs after the list say what follows. A feature grid is Compare.",
+      "One decision with the options that were on the table. Bold the chosen option, italicize the rejected ones, and add `— why` after each. Paragraphs after the list describe what happens next. For a feature grid, use Compare.",
     registry: "decision",
     dependencies: ["motion"],
     mdx: "- **Postgres** — we already run it\n- *Mongo* — no joins we trust",
@@ -326,7 +328,7 @@ const content: CatalogEntry[] = [
     title: "chat",
     name: "Chat",
     description:
-      "A conversation. Write `- you: …` / `- agent: …`. Your turns get the prompt, an italic turn is an aside, and a repeated speaker is not repeated. One sentence someone said is Quote.",
+      "A conversation. Write `- you: …` and `- agent: …` lines. Your turns get a prompt glyph, italic turns are asides, and back-to-back lines from one speaker share a label. For a single remark, use Quote.",
     registry: "chat",
     dependencies: ["motion"],
     mdx: "- you: which graph shows a rollback?\n- agent: Timeline.",
@@ -368,7 +370,7 @@ const content: CatalogEntry[] = [
     title: "env",
     name: "Env",
     description:
-      "Environment variables. Paste a `.env` fence: comments above a key describe it, and a comment that says required marks it. Label/value rows that are not variables are Spec.",
+      "Environment variables. Paste a `.env` code block: a comment above a key describes it, and a comment that says required marks it as required. For label and value rows that aren't variables, use Spec.",
     registry: "env",
     dependencies: ["motion"],
     mdx: "```bash\n# Postgres URL. Required.\nDATABASE_URL=postgres://…\n```",
@@ -399,7 +401,7 @@ const content: CatalogEntry[] = [
     title: "endpoint",
     name: "Endpoint",
     description:
-      "One API route. First line `POST /v1/graphs`, a sentence, a params table (bold name is required), then request and response fences. Many routes in one table are Sheet.",
+      "One API route. Start with a line like `POST /v1/graphs`, then a sentence, a parameter table (a bold name means required), and request and response code blocks. To list many routes in one table, use Sheet.",
     registry: "endpoint",
     dependencies: ["motion"],
     mdx: "POST /v1/graphs\n\n| Field | Type | |\n| --- | --- | --- |\n| **slug** | string | the graph |",
@@ -445,7 +447,7 @@ const content: CatalogEntry[] = [
     title: "keys",
     name: "Keys",
     description:
-      "Keyboard shortcuts drawn as keycaps. Write `- ⌘K: search`, `- Ctrl+Shift+P: palette`, or `- g then d: docs`. Bold is the one to learn first.",
+      "Keyboard shortcuts drawn as keycaps. Write `- ⌘K: search`, `- Ctrl+Shift+P: palette` or `- g then d: docs`. Bold the one worth learning first.",
     registry: "keys",
     dependencies: ["motion"],
     mdx: "- ⌘K: search the docs",
@@ -476,7 +478,7 @@ const content: CatalogEntry[] = [
     title: "faq",
     name: "Faq",
     description:
-      "Questions and answers. Each `### heading` is a question; the Markdown under it is the answer. Bold the one to read first. A procedure is Steps.",
+      "Questions and answers. Each `### heading` is a question and the Markdown under it is the answer. Bold the question people should read first. For a procedure, use Steps.",
     registry: "faq",
     dependencies: ["motion"],
     mdx: "### Is this an npm package?\n\nNo. The CLI copies the source.",
@@ -510,7 +512,7 @@ const catalog: CatalogEntry[] = [
     title: "table",
     name: "GraphTable",
     description:
-      "A framed table. Write a markdown table inside the tag. Grouped sections are Sheet. Label/value rows are Spec.",
+      "A framed table. Write a regular Markdown table inside the tag. For grouped sections use Sheet, and for label and value rows use Spec.",
     registry: "graph-table",
     dependencies: ["motion"],
     props: [
@@ -559,7 +561,7 @@ const catalog: CatalogEntry[] = [
     title: "sheet",
     name: "GraphSheet",
     description:
-      "A table with section titles, like an API or an RFC. Write `### Scope` then a markdown table. A flat table is Table.",
+      "A table split into titled sections, like an API reference or an RFC. Write `### Scope` followed by a Markdown table. For a flat table, use Table.",
     registry: "graph-sheet",
     dependencies: ["motion"],
     props: [
@@ -608,7 +610,7 @@ const catalog: CatalogEntry[] = [
     title: "flow",
     name: "GraphFlow",
     description:
-      "A process on a dashed arrow. One markdown line per path, split on →. Bold the node you're on. A dated list is Timeline. A schedule is Gantt.",
+      "A process drawn along dashed arrows. Write one line per path with the steps separated by →, and bold the step you're on. For a dated list use Timeline, and for a schedule use Gantt.",
     registry: "graph-flow",
     dependencies: ["motion"],
     props: [
@@ -640,7 +642,7 @@ const catalog: CatalogEntry[] = [
     title: "bars",
     name: "GraphBars",
     description:
-      "Two small histograms, before and after. Write `- before: 2 4 3 5 2`. A ranked list is Rank.",
+      "Two small histograms, before and after. Write `- before: 2 4 3 5 2`. For labels ranked by value, use Rank.",
     registry: "graph-bars",
     dependencies: ["motion"],
     props: [
@@ -689,7 +691,7 @@ const catalog: CatalogEntry[] = [
     title: "rank",
     name: "GraphRank",
     description:
-      "Labels ranked by a number. Write `- 12,400 /docs`. Two histograms side by side is Bars.",
+      "Labels ranked by a number. Write `- 12,400 /docs`. To compare two histograms side by side, use Bars.",
     registry: "graph-rank",
     dependencies: ["motion"],
     props: [
@@ -740,7 +742,7 @@ const catalog: CatalogEntry[] = [
     title: "cells",
     name: "GraphCells",
     description:
-      "A small 0/1 grid. Write `- fragments: 1 0 1 0 0 / 0 1 0 1 0`. A share of a hundred cells is Waffle.",
+      "A small grid of filled and empty cells. Write `- fragments: 1 0 1 0 0 / 0 1 0 1 0`. To show a share out of 100, use Waffle.",
     registry: "graph-cells",
     dependencies: ["motion"],
     props: [
@@ -779,7 +781,7 @@ const catalog: CatalogEntry[] = [
     title: "meter",
     name: "GraphMeter",
     description:
-      "Progress bar drawn with = characters. Empty slots stay as dashes. Write `67% — of the disk` as children.",
+      "A progress bar drawn with `=` characters, with dashes for the empty part. Write `67% — of the disk` inside the tag.",
     registry: "graph-meter",
     dependencies: ["motion"],
     props: [
@@ -829,7 +831,7 @@ const catalog: CatalogEntry[] = [
     title: "spark",
     name: "GraphSpark",
     description:
-      "Sparkline from block characters. Values scale to the highest point. Write `2 3 5 8 — caption` as children.",
+      "A sparkline made of block characters, scaled to the highest value. Write `2 3 5 8 — caption` inside the tag.",
     registry: "graph-spark",
     dependencies: ["motion"],
     props: [
@@ -873,7 +875,7 @@ const catalog: CatalogEntry[] = [
     title: "tree",
     name: "GraphTree",
     description:
-      "Nested list drawn with branch glyphs. Good for files or an org chart. Bold a node to highlight it. Not a timeline or a table.",
+      "A nested list drawn with branch lines, good for file structures or an org chart. Bold a node to highlight it.",
     registry: "graph-tree",
     dependencies: ["motion"],
     props: [
@@ -906,7 +908,7 @@ const catalog: CatalogEntry[] = [
     title: "timeline",
     name: "GraphTimeline",
     description:
-      "A dated list. Write `- Mar 18: Docs`; bold the current row, italic the next. `— note` or an indented paragraph sits under the row. A punch list is Check. A schedule with start and end is Gantt.",
+      "A dated list. Write `- Mar 18: Docs`, bold the current row and italicize the next. A `— note` or an indented paragraph appears under its row. For a to-do list use Check, and for work with start and end dates use Gantt.",
     registry: "graph-timeline",
     dependencies: ["motion"],
     props: [
@@ -938,7 +940,7 @@ const catalog: CatalogEntry[] = [
     title: "check",
     name: "GraphCheck",
     description:
-      "A punch list. Write `- [x] freeze tokens`. A note after an em dash sits under the row; a nested list is sub-tasks. Dated steps are Timeline. Columns of work are Board.",
+      "A to-do list. Write `- [x] freeze tokens`. Text after an em dash becomes a note under the item, and a nested list becomes sub-tasks. For dated steps use Timeline, and for columns of work use Board.",
     registry: "graph-check",
     dependencies: ["motion"],
     props: [
@@ -970,7 +972,7 @@ const catalog: CatalogEntry[] = [
     title: "stack",
     name: "GraphStack",
     description:
-      "Parts of a whole on one track. Write `- marketing: 48 js, 22 css, 30 images`. A share of cells is Waffle.",
+      "Parts of a whole on one bar. Write `- marketing: 48 js, 22 css, 30 images`. For a share shown as cells, use Waffle.",
     registry: "graph-stack",
     dependencies: ["motion"],
     props: [
@@ -1020,7 +1022,7 @@ const catalog: CatalogEntry[] = [
     title: "funnel",
     name: "GraphFunnel",
     description:
-      "Steps that get narrower as people drop off. Write `- 12,400 docs`. A ranked list is Rank. A process is Flow.",
+      "Steps that narrow as people drop off. Write `- 12,400 docs`. For a plain ranking use Rank, and for a process use Flow.",
     registry: "graph-funnel",
     dependencies: ["motion"],
     props: [
@@ -1070,7 +1072,7 @@ const catalog: CatalogEntry[] = [
     title: "gantt",
     name: "GraphGantt",
     description:
-      "Work that overlaps on a shared calendar. Write `- build: 0.2 0.75 0.55`. A dated log is Timeline.",
+      "Overlapping work on a shared calendar. Write `- build: 0.2 0.75 0.55` for start, end and progress. For a dated log, use Timeline.",
     registry: "graph-gantt",
     dependencies: ["motion"],
     props: [
@@ -1131,7 +1133,7 @@ const catalog: CatalogEntry[] = [
     title: "plot",
     name: "GraphPlot",
     description:
-      "Line or area chart built from columns of block characters. Write numbers, or `- Mon: 4` rows to keep the labels.",
+      "A line or area chart built from columns of block characters. Write a list of numbers, or `- Mon: 4` rows to keep the labels.",
     registry: "graph-plot",
     dependencies: ["motion"],
     props: [
@@ -1193,7 +1195,7 @@ const catalog: CatalogEntry[] = [
     title: "waffle",
     name: "GraphWaffle",
     description:
-      "Grid of 100 cells. The value sets how many are filled in. Write `73% — tests green` as children.",
+      "A grid of 100 cells, filled to the value. Write `73% — tests green` inside the tag.",
     registry: "graph-waffle",
     dependencies: ["motion"],
     props: [
@@ -1249,7 +1251,7 @@ const catalog: CatalogEntry[] = [
     title: "diff",
     name: "GraphDiff",
     description:
-      "What was added, removed, or kept. Write `- app: +31 kb`. Bold the total. `- ~~old~~ new` draws a removed line and an added line. Numeric before/after is Slope.",
+      "What was added, removed or kept. Write `- app: +31 kb` and bold the total. `- ~~old~~ new` draws one removed line and one added line. For numbers before and after, use Slope.",
     registry: "graph-diff",
     dependencies: ["motion"],
     props: [
@@ -1286,7 +1288,7 @@ const catalog: CatalogEntry[] = [
     title: "invoice",
     name: "GraphInvoice",
     description:
-      "From, bill-to, line items, and a totals block. Write a markdown table; from and to are strings. A generic grid is Table.",
+      "An invoice with sender, recipient, line items and totals. Write the line items as a Markdown table and the sender and recipient as text. For a general table, use Table.",
     registry: "graph-invoice",
     dependencies: ["motion"],
     props: [
@@ -1344,7 +1346,7 @@ const catalog: CatalogEntry[] = [
     title: "compare",
     name: "GraphCompare",
     description:
-      "Two options side by side. Write a markdown table; `yes`/`no` become ✓ and –. Exact numbers on both axes are Matrix.",
+      "Options side by side. Write a Markdown table where `yes` and `no` become ✓ and –. For exact numbers on both axes, use Matrix.",
     registry: "graph-compare",
     dependencies: ["motion"],
     props: [
@@ -1386,7 +1388,7 @@ const catalog: CatalogEntry[] = [
     title: "matrix",
     name: "GraphMatrix",
     description:
-      "Exact numbers on both axes. Write a markdown table. Intensities are Heatmap. Yes/no features are Compare.",
+      "A grid of exact numbers with labels on both axes. Write a Markdown table. For shaded intensities use Heatmap, and for yes/no features use Compare.",
     registry: "graph-matrix",
     dependencies: ["motion"],
     props: [
@@ -1428,7 +1430,7 @@ const catalog: CatalogEntry[] = [
     title: "stat",
     name: "GraphStat",
     description:
-      "Two to four large numbers. Write `- 12,400 docs`; bold the one that matters. One number with a trend is KPI.",
+      "Two to four big numbers. Write `- 12,400 docs` and bold the one that matters most. For a single number with a trend, use KPI.",
     registry: "graph-stat",
     dependencies: ["motion"],
     props: [
@@ -1460,7 +1462,7 @@ const catalog: CatalogEntry[] = [
     title: "kpi",
     name: "GraphKpi",
     description:
-      "One large number with a sparkline under it. Write `12,400 this week — +18%`, then a line of numbers.",
+      "One big number with a sparkline underneath. Write `12,400 this week — +18%`, then a line of numbers.",
     registry: "graph-kpi",
     dependencies: ["motion"],
     props: [
@@ -1512,7 +1514,7 @@ const catalog: CatalogEntry[] = [
     title: "spec",
     name: "GraphSpec",
     description:
-      "Aligned label and value rows. Write `- Family: Geist Mono`. Inline code and links survive; an indented paragraph sits under the value. Headline numbers are Stat. A table with headers is Table.",
+      "Aligned label and value rows. Write `- Family: Geist Mono`. Inline code and links work, and an indented paragraph appears under its value. For headline numbers use Stat, and for a table with headers use Table.",
     registry: "graph-spec",
     dependencies: ["motion"],
     props: [
@@ -1544,7 +1546,7 @@ const catalog: CatalogEntry[] = [
     title: "activity",
     name: "GraphActivity",
     description:
-      "GitHub-style contribution grid. Pass dated counts, or write `- 2026-03-02: 0 1 4 2 0*3`. The counts run day by day from the date.",
+      "A GitHub-style contribution grid. Pass dated counts, or write `- 2026-03-02: 0 1 4 2 0*3` and the counts fill in day by day from that date.",
     registry: "graph-activity",
     dependencies: ["motion"],
     props: [
@@ -1606,7 +1608,7 @@ const catalog: CatalogEntry[] = [
     title: "heatmap",
     name: "GraphHeatmap",
     description:
-      "A labeled grid of intensities. Write a markdown table. Exact numbers are Matrix. A contribution calendar is Activity.",
+      "A labeled grid shaded by intensity. Write a Markdown table. For exact numbers use Matrix, and for a contribution calendar use Activity.",
     registry: "graph-heatmap",
     dependencies: ["motion"],
     props: [
@@ -1666,7 +1668,7 @@ const catalog: CatalogEntry[] = [
     title: "calendar",
     name: "GraphCalendar",
     description:
-      "One month as a seven-column grid. Marked days use the accent. today is wrapped in brackets. Write `- 12: launch` and the labels list under the month; bold is today.",
+      "One month as a seven-column grid. Write `- 12: launch` to mark a day; marked days use the accent and their labels are listed under the month. Today is shown in brackets, and a bold item sets it.",
     registry: "graph-calendar",
     dependencies: ["motion"],
     props: [
@@ -1719,7 +1721,7 @@ const catalog: CatalogEntry[] = [
     title: "waterfall",
     name: "GraphWaterfall",
     description:
-      "Running total as floating bars. First row is the start, last is the end, signed values in between.",
+      "A running total drawn as floating bars. The first row is the starting value, the last is the result, and the signed values in between move it up or down.",
     registry: "graph-waterfall",
     dependencies: ["motion"],
     props: [
@@ -1765,7 +1767,7 @@ const catalog: CatalogEntry[] = [
     title: "uptime",
     name: "GraphUptime",
     description:
-      "One glyph per day. ok, degraded, down, or empty. Wraps every 30 days. Runs keep it short: `ok*40 down*2 ok*48`.",
+      "One glyph per day for ok, degraded, down or no data, wrapping every 30 days. Shorthand keeps long runs short: `ok*40 down*2 ok*48`.",
     registry: "graph-uptime",
     dependencies: ["motion"],
     props: [
@@ -1820,7 +1822,7 @@ const catalog: CatalogEntry[] = [
     title: "slope",
     name: "GraphSlope",
     description:
-      "Two figures per row with an arrow between. Up uses the accent, down recedes.",
+      "Two values per row with an arrow between them. Increases use the accent and decreases fade.",
     registry: "graph-slope",
     dependencies: ["motion"],
     props: [
@@ -1862,7 +1864,7 @@ const catalog: CatalogEntry[] = [
     title: "board",
     name: "GraphBoard",
     description:
-      "Columns of work. Each `### heading` is a column with a list under it. Bold is now, italic is next, `— note` sits under the item. A punch list is Check. Dates are Timeline.",
+      "Columns of work, like a kanban board. Each `### heading` is a column with a list underneath. Bold marks what's in progress, italics what's next, and `— note` adds a line under an item. For a to-do list use Check, and for dates use Timeline.",
     registry: "graph-board",
     dependencies: ["motion"],
     mdx: "### Now\n- **Children for every graph**\n\n### Next\n- Board",
@@ -1892,7 +1894,7 @@ const catalog: CatalogEntry[] = [
     title: "score",
     name: "GraphScore",
     description:
-      "Ratings as dots. Write `- Docs: 4/5`; halves draw a half dot. Bold the row that matters and the rest recede. Actual versus target is Bullet.",
+      "Ratings drawn as dots. Write `- Docs: 4/5`; halves draw a half dot. Bold the row that matters and the rest fade. For actual versus target, use Bullet.",
     registry: "graph-score",
     dependencies: ["motion"],
     mdx: "- Performance: 4/5\n- **Docs: 2.5/5**",
@@ -1932,7 +1934,7 @@ const catalog: CatalogEntry[] = [
     title: "bullet",
     name: "GraphBullet",
     description:
-      "Actual versus target on a shared track. The marker is the target.",
+      "An actual value against a target on one bar. The marker shows the target.",
     registry: "graph-bullet",
     dependencies: ["motion"],
     props: [
@@ -1977,7 +1979,7 @@ const catalog: CatalogEntry[] = [
     title: "timer",
     name: "GraphTimer",
     description:
-      "Elapsed time, how long ago, or the time of day. The numbers update every second. Write the start as children: `2026-09-01T09:00Z — since deploy`.",
+      "Time since a moment, how long ago it was, or the current time, updated every second. Write the start inside the tag: `2026-09-01T09:00Z — since deploy`.",
     registry: "graph-timer",
     dependencies: ["motion"],
     props: [
@@ -2022,7 +2024,7 @@ const catalog: CatalogEntry[] = [
     title: "countdown",
     name: "GraphCountdown",
     description:
-      "Time left until a date. After that it shows a short label you pass in. Write `2026-12-01 — until launch` as children.",
+      "Time remaining until a date. Once the date passes, it shows a short label you choose. Write `2026-12-01 — until launch` inside the tag.",
     registry: "graph-countdown",
     dependencies: ["motion"],
     props: [
@@ -2065,7 +2067,7 @@ const catalog: CatalogEntry[] = [
     title: "frame",
     name: "Graph",
     description:
-      "Dashed frame wrapper used by every graph. Compose with GraphTitle, GraphBody, GraphRule, GraphTrack, and GraphTick. corner picks the character at each corner.",
+      "The dashed frame every graph is drawn in. Build with GraphTitle, GraphBody, GraphRule, GraphTrack and GraphTick, and set corner to change the corner character.",
     registry: "graph-frame",
     dependencies: ["motion"],
     props: [

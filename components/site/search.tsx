@@ -17,6 +17,7 @@ import { SiteCorners } from "@/components/site/corners"
 import { components, getStarted } from "@/lib/docs/catalog"
 import { recipes } from "@/lib/docs/recipes"
 import { cn } from "@/lib/utils"
+import { HitArea } from "@/components/site/hit-area"
 
 type Hit = {
   href: string
@@ -24,6 +25,15 @@ type Hit = {
   detail: string
   group: string
   haystack: string
+}
+
+const KEYWORDS: Record<string, string> = {
+  "/agents":
+    "skill llms.txt cursor claude codex opencode mdx write read ascii fence recipes comark knap",
+  "/docs/skill": "cursor claude codex opencode agent skill.md recipes",
+  "/docs/comark": "yaml graph-comark adapter streaming ::graph markdown",
+  "/docs/knap":
+    "graph-knap filter graph_timeline createEngine template markdown",
 }
 
 const HITS: Hit[] = [
@@ -57,14 +67,6 @@ const HITS: Hit[] = [
     group: "get started",
     haystack:
       "knap template filter graph_timeline graph_meter data markdown obsidian kepano graph-knap",
-  },
-  {
-    href: "/agents",
-    title: "for agents",
-    detail: "/agents",
-    group: "get started",
-    haystack:
-      "for agents skill llms.txt cursor claude codex opencode mdx write read ascii fence recipes comark knap",
   },
   {
     href: "/about",
@@ -108,13 +110,7 @@ const HITS: Hit[] = [
     detail: item.href,
     group: "get started",
     haystack:
-      item.href === "/docs/skill"
-        ? "skill /docs/skill cursor claude codex opencode agent skill.md recipes"
-        : item.href === "/docs/comark"
-          ? "comark yaml graph-comark adapter streaming ::graph markdown"
-          : item.href === "/docs/knap"
-            ? "knap graph-knap filter graph_timeline createEngine template markdown"
-            : `${item.label} ${item.href}`.toLowerCase(),
+      `${item.label} ${item.href} ${KEYWORDS[item.href] ?? ""}`.toLowerCase(),
   })),
   ...recipes.map((item) => ({
     href: `/docs/examples#${item.slug}`,
@@ -140,15 +136,6 @@ function SiteSearch() {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState("")
   const [active, setActive] = useState(0)
-  const [mod, setMod] = useState("Ctrl")
-
-  useEffect(() => {
-    const mac =
-      /mac/i.test(navigator.platform) || /mac/i.test(navigator.userAgent)
-    setTimeout(() => {
-      setMod(mac ? "⌘" : "Ctrl")
-    }, 0)
-  }, [])
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -159,6 +146,8 @@ function SiteSearch() {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
         event.preventDefault()
         setOpen((current) => !current)
+        setQuery("")
+        setActive(0)
       }
     }
 
@@ -174,12 +163,6 @@ function SiteSearch() {
 
     return HITS.filter((item) => item.haystack.includes(needle))
   }, [query])
-
-  useEffect(() => {
-    setTimeout(() => {
-      setActive(0)
-    }, 0)
-  }, [query, open])
 
   useEffect(() => {
     if (!open) {
@@ -253,7 +236,6 @@ function SiteSearch() {
       open={open}
     >
       <Dialog.Trigger
-        nativeButton={false}
         render={
           <HeaderButton
             aria-keyshortcuts="Meta+K Control+K"
@@ -308,7 +290,10 @@ function SiteSearch() {
               autoComplete="off"
               autoCorrect="off"
               className="h-14 min-w-0 flex-1 bg-transparent text-base outline-none sm:h-12"
-              onChange={(event) => setQuery(event.target.value)}
+              onChange={(event) => {
+                setQuery(event.target.value)
+                setActive(0)
+              }}
               onKeyDown={onInputKeyDown}
               placeholder="Search"
               ref={inputRef}
@@ -318,10 +303,7 @@ function SiteSearch() {
               value={query}
             />
             <Dialog.Close className="relative shrink-0 py-2 text-muted-foreground hover:text-foreground sm:hidden">
-              <span
-                aria-hidden="true"
-                className="absolute top-1/2 left-1/2 size-[max(100%,3rem)] -translate-1/2 pointer-fine:hidden"
-              />
+              <HitArea />
               Cancel
             </Dialog.Close>
           </div>

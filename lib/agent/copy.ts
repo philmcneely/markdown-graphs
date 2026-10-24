@@ -9,13 +9,13 @@ import {
 import { SITE_AUTHOR, SITE_EMAIL, SITE_URL } from "@/lib/site"
 
 export const HOME_WHAT =
-  "mdxcn is a set of figures drawn with text, made for agents to put in their writing. In an MDX file, the agent writes Markdown inside a component tag. In a README, a PR, or Linear, it pastes the same figure as a code block. The React components render the tag on an MDX page, and the shadcn CLI copies them into your app. There is no npm package."
+  "mdxcn is a set of figures drawn with text, for people and agents to put in their writing. In an MDX file you write Markdown inside a component tag and get a live React component. In a README, a pull request or Linear, you paste the same figure as a code block. The shadcn CLI copies the components into your app, so there's no npm package."
 
 export const HOME_WRITE =
   "When an agent is writing a refactor, an incident, a tradeoff, or a PR, it can put at most two graphs next to the prose. MDX gets markdown children inside the tag. A Comark app gets a ::graph-* block. A Knap template gets a graph_* filter that emits the official fence. A README, GitHub comment, Linear note, or any file that cannot run a renderer gets the official fenced ASCII from /llms.txt. It should not invent SVG, Mermaid, or homemade ASCII."
 
 export const HOME_READ =
-  "Because the figure is characters in the file, opening the MDX later shows the labels and values, and the agent can edit the frame the same way it wrote it."
+  "Because the figure is plain text in the file, opening the MDX later shows the labels and values, and an agent can edit it the same way it wrote it."
 
 export const HOME_INSTALL = `pnpm dlx shadcn@latest add ${SITE_URL}/r/all.json`
 
@@ -26,7 +26,7 @@ export const HOME_API =
   "The JSON catalog is at /api/v1/components, OpenAPI at /openapi.json, and the developer portal at /developers. Every API response includes RateLimit-* headers (1000 GET requests per hour)."
 
 export const HOME_CLI =
-  "Install graphs with the shadcn CLI. There is no npm package. One command copies the source into your project."
+  "Install graphs with the shadcn CLI. One command copies the source into your project; there's no npm package."
 
 export const HOME_BRAND = `${SITE_URL.replace("https://", "")} is the canonical site; the GitHub repo is ${GITHUB_REPO}. Search for mdxcn for docs, the API, and the agent skill.`
 
@@ -77,48 +77,48 @@ ${HOME_BRAND}
 }
 
 export const ABOUT_PARAS = [
-  `mdxcn is a set of MDX components that draw figures with text, created by ${SITE_AUTHOR.name} and now part of Shadcn Labs. The source is published on GitHub under the MIT license. An agent writes Markdown inside a component tag, and the MDX page renders it in a frame. The shadcn CLI copies the files into your app. There is no npm package.`,
-  "Each graph sits in a dashed frame with a title on the top edge. Drawing graphs use one accent by default. Most graphs have an official fenced ASCII for README files, GitHub, Linear, and PR comments. Comark apps can render the same figures from ::graph-* blocks in a plain .md file. Knap templates can emit that fence, or a ::graph-* block, from data.",
-  `The site at ${SITE_URL.replace("https://", "")} is the catalog, the shadcn registry, and the agent skill. The skill file tells an agent which graph to put next to its prose, and what to write: Markdown inside the tag in MDX, a ::graph-* block in Comark, a graph_* filter in Knap, or the code block in a README.`,
-  `Source: ${GITHUB_URL}. Mail: ${SITE_EMAIL}.`,
-  "mdxcn has joined Shadcn Labs. See /shadcn-labs.",
+  `mdxcn is a set of MDX components that draw figures with text. ${SITE_AUTHOR.name} started it, and it's now part of Shadcn Labs. You install it with the shadcn CLI, which copies the source into your app, so there's no npm package to depend on. The code is on GitHub under the MIT license.`,
+  "Every graph sits in a dashed frame with its title on the top edge, and uses a single accent color unless you ask for more. Most graphs also have a plain-text version for READMEs, GitHub, Linear and pull request comments. Comark apps can render the same figures from ::graph-* blocks in a plain .md file, and Knap templates can generate either format from data.",
+  `${SITE_URL.replace("https://", "")} hosts the docs, the shadcn registry and the agent skill. The skill tells an agent which graph belongs next to its writing and what to write for each kind of file: Markdown inside the tag in MDX, a ::graph-* block in Comark, a graph_* filter in Knap, or the plain-text figure in a README.`,
+  `The source is at ${GITHUB_URL}. Questions go to ${SITE_EMAIL}.`,
+  "The Shadcn Labs announcement is at /shadcn-labs.",
 ] as const
 
 export const LABS_INSTALL = `pnpm dlx shadcn@latest add ${SITE_URL}/r/all.json`
 
 export const LABS_ANNOUNCEMENT = [
-  "mdxcn has joined Shadcn Labs.",
-  "Shadcn Labs is an open-source collective building registries, templates, and tools around the shadcn/ui ecosystem. mdxcn.dev and the @mdxcn registry continue as before for installs and documentation.",
-  "Shadcn Labs is not endorsed by or affiliated with shadcn.",
+  "mdxcn is now part of Shadcn Labs.",
+  "Shadcn Labs is an open-source group building registries, templates and tools for the shadcn/ui ecosystem. Nothing changes for you: mdxcn.dev and the @mdxcn registry keep working exactly as before.",
+  "Shadcn Labs isn't affiliated with or endorsed by shadcn.",
 ] as const
 
 export const CONTACT_PARAS = [
-  `Mail ${SITE_AUTHOR.name} at ${SITE_EMAIL}. That address is for the library, the site, and questions about mdxcn or the registry.`,
-  `Bugs and patches go to ${GITHUB_URL}/issues. The repository is public. The license is MIT.`,
-  `On X: ${SITE_AUTHOR.x}. The handle is @kshvbgde.`,
-  "There is no support desk and no SLA. If a graph is wrong, open an issue with the slug and the props you passed. For the skill or the registry, start on /docs/skill or /openapi.json. Do not send secrets over email.",
+  `The best way to reach ${SITE_AUTHOR.name} is email: ${SITE_EMAIL}. Write about the library, the site, the registry, or anything else to do with mdxcn.`,
+  `Bugs and pull requests go to ${GITHUB_URL}/issues. The repository is public and MIT licensed.`,
+  `${SITE_AUTHOR.name} is also on X at ${SITE_AUTHOR.x}.`,
+  "This is a one-person project, so there's no support desk and no guaranteed response time. If a graph renders wrong, open an issue with the component name and the props you passed. Questions about the skill or the registry are often answered on /docs/skill or in /openapi.json. Please don't send secrets by email.",
 ] as const
 
 export const DEVELOPERS_PARAS = [
-  "mdxcn exposes a read-only JSON API for agents and integrators. Version 1 is prefixed at /api/v1/. No API keys. Responses include RateLimit-* headers (1000 GET requests per hour). Errors are RFC 9457 application/problem+json with code, detail, and recovery links.",
-  "Start at /api/v1 for the endpoint index, /api/v1/health for a health check, and /api/v1/components for the full graph catalog. OpenAPI 3.1 is at /openapi.json. RFC 9727 API catalog is at /.well-known/api-catalog.",
-  `Install graph source files with the shadcn CLI: pnpm dlx shadcn@latest add ${SITE_URL}/r/all.json. There is no npm package.`,
-  "Agent resources: /agents and /agents.md for the write/read story, /skill.md for the skill file, /llms.txt for the chooser, fenced ASCII blocks, Comark blocks, and Knap filters. Comark wiring: /docs/comark. Knap wiring: /docs/knap. Deprecation policy: /developers/deprecation.",
+  "mdxcn has a read-only JSON API for agents and integrations. Version 1 lives under /api/v1/ and needs no API key. Every response includes RateLimit-* headers, and the limit is 1,000 GET requests an hour. Errors come back as RFC 9457 application/problem+json, with a code, a description and links to recover.",
+  "Start at /api/v1 for the list of endpoints. /api/v1/health is there for uptime checks, and /api/v1/components returns every graph with its props. The OpenAPI 3.1 spec is at /openapi.json, and an RFC 9727 API catalog is at /.well-known/api-catalog.",
+  `The API describes the components; the shadcn CLI installs them: pnpm dlx shadcn@latest add ${SITE_URL}/r/all.json. There's no npm package.`,
+  "For agents, /agents and /agents.md explain how agents write and read the figures, /skill.md is the skill file, and /llms.txt has the graph guide with every format. Comark setup is at /docs/comark, Knap setup at /docs/knap, and the deprecation policy at /developers/deprecation.",
 ] as const
 
 export const DEPRECATION_PARAS = [
-  "mdxcn API version 1 is stable under the /api/v1/ URL prefix. Breaking changes ship as /api/v2/ with at least six months notice on this page and in the OpenAPI description.",
-  "When an endpoint or field is deprecated, responses may include Deprecation: true and Sunset: <HTTP-date> headers. After the sunset date the route returns 410 Gone with application/problem+json.",
-  "The shadcn registry JSON under /r/ follows the same semver as the site. Registry item slugs are not removed without a replacement slug documented in the OpenAPI changelog.",
-  `Subscribe to GitHub releases on ${GITHUB_REPO} for API and registry changes. Mail hi@kshv.me if you depend on a private integration.`,
+  "Version 1 of the mdxcn API is stable under /api/v1/. Breaking changes will ship as /api/v2/, announced at least six months ahead on this page and in the OpenAPI description.",
+  "When an endpoint or field is deprecated, its responses may include Deprecation: true and Sunset: <HTTP-date> headers. After the sunset date, the route returns 410 Gone with an application/problem+json body.",
+  "The shadcn registry files under /r/ are versioned with the site. A registry item is never removed without a documented replacement in the OpenAPI changelog.",
+  `To hear about API and registry changes, watch releases on ${GITHUB_REPO}. If you run a private integration that depends on the API, email ${SITE_EMAIL} so you get a heads-up.`,
 ] as const
 
 export const PRIVACY_PARAS = [
-  "mdxcn does not have accounts, logins, or user profiles. Copying a graph into your repo does not send us the file.",
-  "The site is hosted on Vercel. Vercel Analytics records page views. We do not run ads, and we do not sell visitor data.",
-  `The header may fetch the public GitHub star count for ${GITHUB_REPO}. That request goes to api.github.com. We do not send your identity with it.`,
-  `Mail to ${SITE_EMAIL} is ordinary email. Do not send secrets. The registry JSON under /r/ and the skill files are public.`,
-  "If this policy changes, the new text replaces this page. There is no separate legal entity behind the project beyond the author named on /about.",
+  "mdxcn has no accounts, logins or user profiles. Copying a graph into your repo doesn't send anything to us.",
+  "The site runs on Vercel, and Vercel Analytics counts page views. There are no ads, and visitor data isn't sold.",
+  `The header shows the public GitHub star count for ${GITHUB_REPO}. The server fetches it from api.github.com, so your browser never contacts GitHub for it.`,
+  `Email to ${SITE_EMAIL} is regular email, so please don't send secrets. The registry files under /r/ and the skill files are public.`,
+  "If this policy changes, this page is updated. There's no company behind mdxcn beyond the author named on /about.",
 ] as const
 
 export function developersMarkdown(origin = SITE_URL) {

@@ -26,9 +26,9 @@ function PipelineNodeBox({ node }: { node: PipelineNode }) {
           : "border-graph-frame text-foreground"
       )}
     >
-      <span className="font-mono text-[11px] tracking-wide">{node.label}</span>
+      <span className="font-mono text-xs tracking-wide">{node.label}</span>
       {node.hint ? (
-        <span className="font-mono text-[10px] tracking-normal text-graph-muted normal-case">
+        <span className="font-mono text-xs tracking-normal text-graph-muted normal-case">
           {node.hint}
         </span>
       ) : null}
@@ -99,7 +99,7 @@ function PipelineFigure({
                     <StageJoin fanIn={stage.fanIn} />
                   </>
                 ) : null}
-                <div className="flex flex-col gap-0.5 pt-1 font-mono text-[10px] leading-tight tracking-widest text-graph-muted tabular-nums">
+                <div className="flex flex-col gap-0.5 pt-1 font-mono text-xs leading-tight tracking-wide text-graph-muted tabular-nums">
                   <span>{String(index + 1).padStart(2, "0")}</span>
                   <span>{stage.name}</span>
                 </div>

@@ -3,6 +3,7 @@
 import type { ComponentProps } from "react"
 
 import { cn } from "@/lib/utils"
+import { HitArea } from "@/components/site/hit-area"
 
 function HeaderButton({
   label,
@@ -20,10 +21,7 @@ function HeaderButton({
       type="button"
       {...props}
     >
-      <span
-        aria-hidden="true"
-        className="absolute top-1/2 left-1/2 size-[max(100%,3rem)] -translate-1/2 pointer-fine:hidden"
-      />
+      <HitArea />
       {children}
     </button>
   )

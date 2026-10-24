@@ -130,8 +130,8 @@ function GraphSheet({
   return (
     <Graph title={title} className={className} corner={corner}>
       <GraphBody className="px-3 py-6 sm:px-6 sm:py-8">
-        <div className="@container graph-scroll-x">
-          <table className="w-full min-w-lg border-separate border-spacing-0">
+        <div className="@container overflow-x-auto overflow-y-hidden">
+          <table className="w-full border-separate border-spacing-0">
             <thead>
               <tr>
                 {headers.map((header, index) => (

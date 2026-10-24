@@ -53,9 +53,11 @@ export default function GrammarPage() {
         kicker="markdown"
         lead={
           <ProseLead>
-            every component reads the same markdown, so the rules carry over.
-            bold is now, italic is next, <InlineCode>label: value</InlineCode>{" "}
-            is a row, and <InlineCode>— note</InlineCode> is a side note.
+            Every component reads the same handful of Markdown rules, so once
+            you know them you can write any graph. Bold marks what&apos;s
+            current, italics mark what&apos;s next,{" "}
+            <InlineCode>label: value</InlineCode> makes a row, and{" "}
+            <InlineCode>— note</InlineCode> adds a side note.
           </ProseLead>
         }
         title="grammar"
@@ -64,8 +66,8 @@ export default function GrammarPage() {
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">rules</h2>
         <ProseP>
-          write markdown inside the tag. the component reads it as data. the
-          muted line under each rule is who reads it.
+          Write Markdown inside the tag and the component reads it as data. The
+          muted line under each rule lists the components that use it.
         </ProseP>
         <GraphSpec rows={rows(GRAMMAR)} title="GRAMMAR" />
       </section>
@@ -73,11 +75,11 @@ export default function GrammarPage() {
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">every host</h2>
         <ProseP>
-          the same list is mdx children, the body of a{" "}
-          <TextLink href="/docs/comark">comark</TextLink> block, and the{" "}
+          The same list works everywhere: as MDX children, as the body of a{" "}
+          <TextLink href="/docs/comark">Comark</TextLink> block, and as the{" "}
           <InlineCode>body</InlineCode> of a{" "}
-          <TextLink href="/docs/knap">knap</TextLink> content filter. it draws
-          the same fenced ascii for github.
+          <TextLink href="/docs/knap">Knap</TextLink> content filter. It also
+          produces the same plain-text figure for GitHub.
         </ProseP>
         <GraphTimeline title="NIGHT">
           <ul>
@@ -98,8 +100,9 @@ export default function GrammarPage() {
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">upgrades</h2>
         <ProseP>
-          with <TextLink href="/docs/mdx">withMdxcn</TextLink>, plain markdown
-          that github already renders becomes a frame on your site.
+          With <TextLink href="/docs/mdx">withMdxcn</TextLink>, some plain
+          Markdown that GitHub already understands, like alerts, quotes and
+          footnotes, gets drawn in a frame on your site.
         </ProseP>
         <GraphSpec rows={rows(UPGRADES)} title="UPGRADES" />
       </section>

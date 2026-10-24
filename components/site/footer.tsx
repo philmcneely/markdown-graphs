@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import type { ReactNode } from "react"
 import Link from "next/link"
 import { SiteContainer } from "@/components/site/container"
@@ -15,6 +14,28 @@ import {
   SHADCN_LABS_X,
   SHADCN_URL,
 } from "@/lib/shadcn-labs"
+
+const footerLinkClass =
+  "inline-block py-1 text-muted-foreground hover:text-foreground"
+
+const FOOTER_LINKS = [
+  { href: "/developers", label: "developer api" },
+  { href: "/agents", label: "for agents" },
+  { href: "/comark", label: "comark" },
+  { href: "/knap", label: "knap" },
+  { href: "/docs", label: "docs" },
+  { href: "/docs/examples", label: "examples" },
+  { href: "/docs/installation", label: "installation" },
+  { href: "/docs/skill", label: "skill" },
+  { href: "/about", label: "about" },
+  { href: SHADCN_LABS_NOTE, label: "shadcn labs" },
+  { href: "/contact", label: "contact" },
+  { href: "/privacy", label: "privacy" },
+  { href: "/llms.txt", label: "llms.txt" },
+  { href: "/openapi.json", label: "openapi" },
+  { href: GITHUB_URL, label: "source", external: true },
+  { href: `${GITHUB_URL}/blob/main/LICENSE`, label: "MIT", external: true },
+]
 
 function FooterBlock({
   children,
@@ -59,151 +80,28 @@ function SiteFooter() {
             mdxcn
           </Link>
           <nav aria-label="Footer">
-            <ul className="flex flex-wrap gap-6" role="list">
-              <li>
-                <Link
-                  className="font-normal text-muted-foreground hover:text-foreground"
-                  href="/developers"
-                  prefetch={false}
-                >
-                  developer api
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="font-normal text-muted-foreground hover:text-foreground"
-                  prefetch={false}
-                  href="/agents"
-                >
-                  for agents
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="font-normal text-muted-foreground hover:text-foreground"
-                  prefetch={false}
-                  href="/comark"
-                >
-                  comark
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="font-normal text-muted-foreground hover:text-foreground"
-                  prefetch={false}
-                  href="/knap"
-                >
-                  knap
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="font-normal text-muted-foreground hover:text-foreground"
-                  prefetch={false}
-                  href="/docs"
-                >
-                  docs
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="font-normal text-muted-foreground hover:text-foreground"
-                  prefetch={false}
-                  href="/docs/examples"
-                >
-                  examples
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="font-normal text-muted-foreground hover:text-foreground"
-                  prefetch={false}
-                  href="/docs/installation"
-                >
-                  installation
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="font-normal text-muted-foreground hover:text-foreground"
-                  prefetch={false}
-                  href="/docs/skill"
-                >
-                  skill
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="font-normal text-muted-foreground hover:text-foreground"
-                  prefetch={false}
-                  href="/about"
-                >
-                  about
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="font-normal text-muted-foreground hover:text-foreground"
-                  href={SHADCN_LABS_NOTE}
-                  prefetch={false}
-                >
-                  shadcn labs
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="font-normal text-muted-foreground hover:text-foreground"
-                  prefetch={false}
-                  href="/contact"
-                >
-                  contact
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="font-normal text-muted-foreground hover:text-foreground"
-                  prefetch={false}
-                  href="/privacy"
-                >
-                  privacy
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="font-normal text-muted-foreground hover:text-foreground"
-                  prefetch={false}
-                  href="/llms.txt"
-                >
-                  llms.txt
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="font-normal text-muted-foreground hover:text-foreground"
-                  prefetch={false}
-                  href="/openapi.json"
-                >
-                  openapi
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="font-normal text-muted-foreground hover:text-foreground"
-                  href={addQueryParams(GITHUB_URL, UTM_PARAMS)}
-                  rel="noreferrer"
-                >
-                  source
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="font-normal text-muted-foreground hover:text-foreground"
-                  href={addQueryParams(`${GITHUB_URL}/blob/main/LICENSE`, UTM_PARAMS)}
-                  rel="noreferrer"
-                >
-                  MIT
-                </Link>
-              </li>
+            <ul className="flex flex-wrap gap-x-6 gap-y-1" role="list">
+              {FOOTER_LINKS.map((item) => (
+                <li key={item.label}>
+                  {item.external ? (
+                    <a
+                      className={footerLinkClass}
+                      href={addQueryParams(item.href, UTM_PARAMS)}
+                      rel="noreferrer"
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link
+                      className={footerLinkClass}
+                      href={item.href}
+                      prefetch={false}
+                    >
+                      {item.label}
+                    </Link>
+                  )}
+                </li>
+              ))}
             </ul>
           </nav>
         </FooterBlock>
@@ -218,19 +116,16 @@ function SiteFooter() {
               <LabsLogo />
             </a>
             <p className="max-w-[62ch] text-pretty text-muted-foreground">
-              A Shadcn Labs project.{" "}
-              <Link
-                className="text-foreground hover:text-foreground"
-                href={SHADCN_LABS_NOTE}
-              >
-                announcement
+              mdxcn is part of Shadcn Labs.{" "}
+              <Link className="text-foreground" href={SHADCN_LABS_NOTE}>
+                Read the announcement
               </Link>
               .
             </p>
             <p className="text-pretty text-muted-foreground">
-              not endorsed by or affiliated with{" "}
+              Not affiliated with or endorsed by{" "}
               <a
-                className="text-foreground hover:text-foreground"
+                className="text-foreground"
                 href={addQueryParams(SHADCN_URL, UTM_PARAMS)}
                 rel="noreferrer"
                 target="_blank"
@@ -244,46 +139,36 @@ function SiteFooter() {
         </FooterBlock>
 
         <FooterBlock>
-          <a
-            href="https://www.linkstore.io/apps/mdxcn-5646264081"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Listed on Linkstore"
-              className="h-[54px] w-auto"
-              height={54}
-              src="https://www.linkstore.io/badge/mdxcn-5646264081.svg"
-            />
-          </a>
           <div className="flex flex-wrap items-center justify-between gap-2">
             <p className="text-pretty text-muted-foreground">
               © {new Date().getFullYear()}{" "}
               <a
-                className="text-foreground hover:text-foreground"
+                className="text-foreground"
                 href={addQueryParams(SHADCN_LABS_URL, UTM_PARAMS)}
                 rel="noreferrer"
                 target="_blank"
               >
                 Shadcn Labs
               </a>
-              . mit license.
+              . MIT license.
             </p>
             <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-pretty text-muted-foreground">
               <a
-                className="text-foreground hover:text-foreground"
+                className="text-foreground"
                 href={addQueryParams(SHADCN_LABS_X, UTM_PARAMS)}
                 rel="noreferrer"
                 target="_blank"
               >
                 @shadcnlabs
               </a>
-              <Link
-                className="text-foreground hover:text-foreground"
+              <a
+                className="text-foreground"
                 href={addQueryParams("https://x.com/kshvbgde", UTM_PARAMS)}
+                rel="noreferrer"
+                target="_blank"
               >
                 @kshvbgde
-              </Link>
+              </a>
             </p>
           </div>
         </FooterBlock>

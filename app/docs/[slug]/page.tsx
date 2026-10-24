@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
-import { CopyPage } from "@/components/docs/copy-page"
 import { Examples, examplesBySlug } from "@/components/docs/examples"
 import { InstallCommand } from "@/components/docs/install"
 import { DocsPageHeader } from "@/components/docs/page-header"

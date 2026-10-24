@@ -42,10 +42,10 @@ const steps = [
     name: "parse",
     detail: (
       <>
-        <TextLink href={COMARK_URL}>comark</TextLink> turns the{" "}
+        <TextLink href={COMARK_URL}>Comark</TextLink> turns the{" "}
         <InlineCode>.md</InlineCode> file into a{" "}
-        <InlineCode>MarkdownDocument</InlineCode> on the server, in a worker, or
-        as tokens stream in.
+        <InlineCode>MarkdownDocument</InlineCode>. It can run on the server, in
+        a worker, or on text that&apos;s still streaming in.
       </>
     ),
   },
@@ -53,11 +53,11 @@ const steps = [
     name: "coerce",
     detail: (
       <>
-        markdown attributes arrive as strings, so the adapter turns{" "}
-        <InlineCode>value=&quot;0.86&quot;</InlineCode> into{" "}
-        <InlineCode>0.86</InlineCode>, maps <InlineCode>class</InlineCode> to{" "}
-        <InlineCode>className</InlineCode>, and holds off until required props
-        exist so <InlineCode>rows.map</InlineCode> does not throw mid-stream.
+        Markdown attributes arrive as strings, so the adapter turns{" "}
+        <InlineCode>value=&quot;0.86&quot;</InlineCode> back into{" "}
+        <InlineCode>0.86</InlineCode> and renames <InlineCode>class</InlineCode>{" "}
+        to <InlineCode>className</InlineCode>. It also waits until required
+        props exist, so a half-streamed table doesn&apos;t crash.
       </>
     ),
   },
@@ -65,8 +65,8 @@ const steps = [
     name: "render",
     detail: (
       <>
-        each <InlineCode>::graph-*</InlineCode> tag is already on the allowlist,
-        and the same react graph you copied from the registry draws the frame.
+        Every <InlineCode>::graph-*</InlineCode> tag is already allowed, and the
+        same React graph you copied from the registry draws the frame.
       </>
     ),
   },
@@ -139,15 +139,14 @@ export default function ComarkPage() {
         item="graph-comark"
         lead={
           <>
-            put <InlineCode>::graph-*</InlineCode> blocks in a{" "}
+            Write <InlineCode>::graph-*</InlineCode> blocks in an ordinary{" "}
             <InlineCode>.md</InlineCode> file.{" "}
-            <TextLink href={COMARK_URL}>comark</TextLink> parses them and these
-            graphs draw the frames. you do not need mdx or a compile step.{" "}
+            <TextLink href={COMARK_URL}>Comark</TextLink> parses them and mdxcn
+            draws the frames, with no MDX and no compile step. The setup follows{" "}
             <TextLink href={COMARK_DEMO_REPO}>
-              sébastien chopin&apos;s demo
-            </TextLink>{" "}
-            is the reference; the adapter is{" "}
-            <InlineCode>graph-comark</InlineCode>.
+              Sébastien Chopin&apos;s demo
+            </TextLink>
+            , and the piece you add is <InlineCode>graph-comark</InlineCode>.
           </>
         }
         title="graphs inside a plain markdown file"
@@ -156,17 +155,17 @@ export default function ComarkPage() {
       <LandingSection
         lead={
           <ProseP>
-            the source is commonmark plus{" "}
-            <TextLink href={COMARK_URL}>comark</TextLink> component blocks. the
-            rendered side uses the same graphs as the docs. toggle to read the
-            markdown that produced them.
+            Below is one Markdown file, rendered. The source is standard
+            CommonMark plus <TextLink href={COMARK_URL}>Comark</TextLink>{" "}
+            component blocks, and the graphs are the same ones used across these
+            docs. Switch to Source to see what produced them.
           </ProseP>
         }
         title="source and rendered view of the same file"
       >
         <SourcePreview source={COMARK_DEMO_SOURCE}>
           <ProseMuted>
-            p95 crossed 800ms at 14:02. rollback at 14:11.
+            Latency crossed 800ms at 14:02, and we rolled back at 14:11.
           </ProseMuted>
           <GraphTimeline
             events={[
@@ -184,9 +183,7 @@ export default function ComarkPage() {
             ]}
             title="NIGHT"
           />
-          <ProseMuted>
-            same night. these are the two days users felt it.
-          </ProseMuted>
+          <ProseMuted>Users noticed it on two days that week.</ProseMuted>
           <GraphUptime
             days={[
               "ok",
@@ -214,9 +211,9 @@ export default function ComarkPage() {
       <LandingSection
         lead={
           <ProseP>
-            you own three files: parsing stays in{" "}
-            <TextLink href={COMARK_URL}>comark</TextLink>, the graphs stay
-            copied via shadcn, and the adapter is the only new piece.
+            Parsing is <TextLink href={COMARK_URL}>Comark</TextLink>&apos;s job,
+            the graphs are the ones you already copied with shadcn, and the
+            adapter is the only new code in between.
           </ProseP>
         }
         title="how the pieces fit"
@@ -236,9 +233,10 @@ export default function ComarkPage() {
       <LandingSection
         lead={
           <ProseP>
-            use jsx in mdx, the fenced ascii on github and readmes, and{" "}
-            <TextLink href={COMARK_URL}>comark</TextLink> when you need a plain{" "}
-            <InlineCode>.md</InlineCode> file that can stream as it arrives.
+            Use JSX in MDX and the plain-text figure on GitHub and in READMEs.
+            Reach for <TextLink href={COMARK_URL}>Comark</TextLink> when you
+            want a plain <InlineCode>.md</InlineCode> file that can render while
+            it streams in.
           </ProseP>
         }
         title="where each format belongs"

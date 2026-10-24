@@ -41,7 +41,9 @@ function LabsBanner() {
             src="/shadcn-labs-brand/shadcn-labs-logomark.svg"
             width={14}
           />
-          <span className="text-foreground">mdxcn has joined shadcn labs.</span>{" "}
+          <span className="text-foreground">
+            mdxcn is now part of Shadcn Labs.
+          </span>{" "}
           <Button
             className="ml-1 align-middle"
             nativeButton={false}

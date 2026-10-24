@@ -19,46 +19,46 @@ import { installationJsonLd, pageMeta } from "@/lib/seo"
 export const metadata: Metadata = pageMeta({
   title: "installation",
   description:
-    "write markdown children in mdx. paste the fence when the file cannot render. the cli copies the tags.",
+    "Install mdxcn components with the shadcn CLI, register them for MDX, and set up the @mdxcn namespace.",
   path: "/docs/installation",
 })
 
 const description =
-  "write markdown children inside the tag. paste the fence when the file cannot render mdx. the cli copies the source into your project so the tags exist. there is no npm package. you need motion."
+  "There's no npm package to install. The shadcn CLI copies each component's source into your project, and the only dependency it adds is motion. After that, you write ordinary Markdown inside the component's tag. Where MDX doesn't render, like a README, you paste the plain-text version instead."
 
 const extra = `## mdx
 
-register the parent once in mdx-components.tsx. the .mdx tab is what you write. the .md tab is the framed figure, for notion or a readme.
+Register each component once in mdx-components.tsx. After that, the lists and tables you write inside its tag need no imports. On every docs page, the .mdx tab shows what you write and the .md tab shows the plain-text figure for Notion or a README.
 
 ## agents
 
-$ORIGIN/agents covers writing and reading: markdown inside the tag in mdx, the code block in a readme, ::graph-* in comark, graph_* in knap. $ORIGIN/docs/skill is the skill.md. $ORIGIN/llms.txt is the chooser, the fences, the comark blocks, and the knap filters.
+$ORIGIN/agents explains how an agent writes figures and reads them back: Markdown inside the tag in MDX, the plain-text figure in a README, ::graph-* blocks in Comark, and graph_* filters in Knap. $ORIGIN/docs/skill has the skill file. $ORIGIN/llms.txt puts the graph guide and every format in one file.
 
 ## one component
 
-the shadcn cli copies the source, or copy the files from github.
+The shadcn CLI copies the component into your project. You can also copy the files from GitHub by hand.
 
 pnpm dlx shadcn@latest add $ORIGIN/r/graph-table.json
 
 ## everything
 
-installs every graph and the shared frame code into registry/default.
+Installs every graph and the shared frame code into registry/default.
 
 pnpm dlx shadcn@latest add $ORIGIN/r/all.json
 
 ## namespace
 
-add the registry once in components.json, then install components by name.
+Add the registry to components.json once, then install components by name.
 
 pnpm dlx shadcn@latest registry add @mdxcn=$ORIGIN/r/{name}.json
 
-then:
+Then:
 
 pnpm dlx shadcn@latest add @mdxcn/graph-table
 
 ## import
 
-files land under @/registry. add your own barrel export if you want a shorter import path.
+Components land under @/registry. If the import path feels long, add a barrel file that re-exports the ones you use.
 
 import { GraphTable } from "@/registry/default/graph-table/graph-table"`
 
@@ -77,11 +77,13 @@ export default function InstallationPage() {
         }}
         lead={
           <ProseLead>
-            write markdown children inside the tag. paste the fence when the
-            file cannot render mdx. the{" "}
-            <TextLink href="https://ui.shadcn.com">shadcn</TextLink> cli copies
-            the source into your project so the tags exist. there is no npm
-            package. you need <InlineCode>motion</InlineCode>.
+            There&apos;s no npm package to install. The{" "}
+            <TextLink href="https://ui.shadcn.com">shadcn</TextLink> CLI copies
+            each component&apos;s source into your project, and the only
+            dependency it adds is <InlineCode>motion</InlineCode>. After that,
+            you write ordinary Markdown inside the component&apos;s tag. Where
+            MDX doesn&apos;t render, like a README, you paste the plain-text
+            version instead.
           </ProseLead>
         }
         title="installation"
@@ -91,39 +93,38 @@ export default function InstallationPage() {
         <section className="flex flex-col gap-4">
           <h2 className="text-xl font-semibold tracking-tight">mdx</h2>
           <ProseP>
-            register the parent once. lists and tables inside the tag do not
-            need extra imports. the .mdx tab is what you write. the .md tab is
-            the framed figure, for notion or a readme.
+            Register each component once in{" "}
+            <InlineCode>mdx-components.tsx</InlineCode>. After that, the lists
+            and tables you write inside its tag need no imports. On every docs
+            page, the .mdx tab shows what you write and the .md tab shows the
+            plain-text figure for Notion or a README.
           </ProseP>
           <Callout type="tip">
-            register the parent once in{" "}
-            <InlineCode>mdx-components.tsx</InlineCode> and wrap the map in{" "}
-            <TextLink href="/docs/mdx">withMdxcn</TextLink> so tags your docs
-            framework swaps out still parse.
+            Wrap your component map in{" "}
+            <TextLink href="/docs/mdx">withMdxcn</TextLink>. Some docs
+            frameworks replace tags like <InlineCode>ul</InlineCode> and{" "}
+            <InlineCode>table</InlineCode> with their own components, and the
+            wrapper lets mdxcn read those too.
           </Callout>
           <Steps title="mdx">
             <ol>
               <li>
-                <p>
-                  <strong>write</strong>
-                </p>
-                <p>
-                  markdown children inside the tag. the .mdx tab. the .md tab is
-                  the fence for notion or a readme.
-                </p>
-              </li>
-              <li>
-                <p>register the parent</p>
-                <p>
-                  once in mdx-components.tsx. lists and tables inside do not
-                  need their own imports.
-                </p>
+                <p>copy the files</p>
+                <p>Run the CLI command below, or copy them from GitHub.</p>
               </li>
               <li>
                 <p>
-                  <em>copy the files</em>
+                  <strong>register the component</strong>
                 </p>
-                <p>if the app does not have the tags yet. cli or github.</p>
+                <p>Add it to mdx-components.tsx. You only do this once.</p>
+              </li>
+              <li>
+                <p>
+                  <em>write Markdown inside the tag</em>
+                </p>
+                <p>
+                  The .mdx tab on each docs page shows exactly what to type.
+                </p>
               </li>
             </ol>
           </Steps>
@@ -132,16 +133,19 @@ export default function InstallationPage() {
         <section className="flex flex-col gap-4">
           <h2 className="text-xl font-semibold tracking-tight">agents</h2>
           <ProseP>
-            a skill file so the agent pastes a figure instead of drawing svg.
-            markdown children in mdx. the fence in a readme. a{" "}
-            <InlineCode>::graph-*</InlineCode> block in{" "}
-            <TextLink href={COMARK_URL}>comark</TextLink>. a{" "}
+            With the skill installed, an agent drops in a figure instead of
+            drawing an SVG. It writes Markdown inside the tag in MDX, the
+            plain-text figure in a README, a <InlineCode>::graph-*</InlineCode>{" "}
+            block in <TextLink href={COMARK_URL}>Comark</TextLink>, and a{" "}
             <InlineCode>graph_*</InlineCode> filter in{" "}
-            <TextLink href={KNAP_URL}>knap</TextLink>.{" "}
-            <TextLink href="/agents">for agents</TextLink> is the write and read
-            story. <TextLink href="/docs/skill">skill</TextLink> is the install.{" "}
-            <TextLink href="/llms.txt">/llms.txt</TextLink> is the chooser plus
-            the fences, comark, and knap blocks, in one file.
+            <TextLink href={KNAP_URL}>Knap</TextLink>.
+          </ProseP>
+          <ProseP>
+            <TextLink href="/agents">For agents</TextLink> explains how writing
+            and reading back work. <TextLink href="/docs/skill">Skill</TextLink>{" "}
+            covers installing it, and{" "}
+            <TextLink href="/llms.txt">/llms.txt</TextLink> puts the graph guide
+            and every format in a single file.
           </ProseP>
         </section>
 
@@ -150,8 +154,9 @@ export default function InstallationPage() {
             one component
           </h2>
           <ProseP>
-            the cli copies the source, or copy the files from github. they land
-            under <InlineCode>registry/default</InlineCode>.
+            The CLI copies the component and the shared frame code into{" "}
+            <InlineCode>registry/default</InlineCode>. If you&apos;d rather do
+            it by hand, the manual tab lists every file to copy from GitHub.
           </ProseP>
           <InstallCommand doc={table} name="graph-table" />
         </section>
@@ -159,11 +164,11 @@ export default function InstallationPage() {
         <section className="flex flex-col gap-4">
           <h2 className="text-xl font-semibold tracking-tight">everything</h2>
           <ProseP>
-            installs every graph and the shared frame code into{" "}
-            <InlineCode>registry/default</InlineCode>.{" "}
+            Installs every graph and the shared frame code into{" "}
+            <InlineCode>registry/default</InlineCode>. That includes{" "}
             <InlineCode>graph-comark</InlineCode> and{" "}
-            <InlineCode>graph-knap</InlineCode> are already in{" "}
-            <InlineCode>all.json</InlineCode>.
+            <InlineCode>graph-knap</InlineCode>, the adapters for Comark and
+            Knap.
           </ProseP>
           <InstallCommand name="all" />
         </section>
@@ -171,8 +176,8 @@ export default function InstallationPage() {
         <section className="flex flex-col gap-4">
           <h2 className="text-xl font-semibold tracking-tight">namespace</h2>
           <ProseP>
-            add the registry once in <InlineCode>components.json</InlineCode>,
-            then install components by name as{" "}
+            Add the registry to <InlineCode>components.json</InlineCode> once.
+            From then on you can install components by name, like{" "}
             <InlineCode>@mdxcn/graph-table</InlineCode>.
           </ProseP>
           <NamespaceSetup />
@@ -181,8 +186,9 @@ export default function InstallationPage() {
         <section className="flex flex-col gap-4">
           <h2 className="text-xl font-semibold tracking-tight">import</h2>
           <ProseP>
-            files land under <InlineCode>@/registry</InlineCode>. add your own
-            barrel export if you want a shorter import path.
+            Components land under <InlineCode>@/registry</InlineCode>. If the
+            import path feels long, add a barrel file that re-exports the ones
+            you use.
           </ProseP>
           <Command
             label="import"

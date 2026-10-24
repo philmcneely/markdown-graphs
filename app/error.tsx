@@ -23,7 +23,7 @@ export default function ErrorPage({
           </Button>
         ) : null
       }
-      body="Something broke while rendering. Try again."
+      body="This page hit an error while loading. Trying again usually fixes it."
       code="ERROR"
       hint={error.digest}
       title="something broke"

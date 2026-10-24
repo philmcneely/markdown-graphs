@@ -6,6 +6,7 @@ import { CheckIcon, Copy01Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 
 import { cn } from "@/lib/utils"
+import { HitArea } from "@/components/site/hit-area"
 
 function useCopied(ms = 1500) {
   const [copied, setCopied] = useState(false)
@@ -78,10 +79,7 @@ function CopyButton({
       onClick={() => copy(text)}
       type="button"
     >
-      <span
-        aria-hidden="true"
-        className="absolute top-1/2 left-1/2 size-[max(100%,3rem)] -translate-1/2 pointer-fine:hidden"
-      />
+      <HitArea />
       <CopyMark copied={copied} caption={caption} />
     </button>
   )

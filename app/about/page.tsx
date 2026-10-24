@@ -13,8 +13,7 @@ import { GITHUB_URL } from "@/lib/github"
 import { pageMeta, webPageJsonLd } from "@/lib/seo"
 import { SITE_EMAIL } from "@/lib/site"
 
-const description =
-  "Framed markdown for MDX. An agent writes the children; the page renders the frame. Source on GitHub, MIT license."
+const description = "What mdxcn is, who makes it, and how it's licensed."
 
 export const metadata: Metadata = pageMeta({
   title: "about",

@@ -3,6 +3,7 @@
 import { useState, type ReactNode } from "react"
 
 import { CopyButton } from "@/components/docs/copy-button"
+import { SegmentedTabs } from "@/components/docs/segmented-tabs"
 import { FrameBox } from "@/components/site/corners"
 import { SiteContainer } from "@/components/site/container"
 import {
@@ -22,9 +23,13 @@ import {
   showcaseLayout,
   type ShowcaseItem,
 } from "@/lib/site/showcase"
-import { cn } from "@/lib/utils"
 
 type ShowcaseTab = "tsx" | "markdown"
+
+const SHOWCASE_TABS = [
+  ["tsx", "tsx"],
+  ["markdown", "markdown"],
+] as const
 
 const previews: Record<string, ReactNode> = {
   "graph-table": (
@@ -169,36 +174,13 @@ function ShowcaseFigure({
 }) {
   return (
     <div className="flex min-w-0 flex-col gap-2">
-      <div
-        aria-label={`${item.title} view`}
-        className="flex flex-wrap items-center gap-1"
-        role="tablist"
-      >
-        {(
-          [
-            ["tsx", "tsx"],
-            ["markdown", "markdown"],
-          ] as const
-        ).map(([id, label]) => (
-          <button
-            aria-selected={tab === id}
-            className={cn(
-              "relative px-2 py-1 text-sm text-muted-foreground hover:text-foreground",
-              tab === id && "bg-muted text-foreground"
-            )}
-            key={id}
-            onClick={() => setTab(id)}
-            role="tab"
-            type="button"
-          >
-            <span
-              aria-hidden="true"
-              className="absolute top-1/2 left-1/2 size-[max(100%,3rem)] -translate-1/2 pointer-fine:hidden"
-            />
-            {label}
-          </button>
-        ))}
-      </div>
+      <SegmentedTabs
+        label={`${item.title} view`}
+        onValueChange={setTab}
+        tabClassName="text-sm"
+        tabs={SHOWCASE_TABS}
+        value={tab}
+      />
       {tab === "tsx" ? (
         <div className="min-w-0">{preview}</div>
       ) : (
@@ -206,7 +188,7 @@ function ShowcaseFigure({
           <div className="absolute top-2 right-2 z-20">
             <CopyButton label="copy markdown" text={item.markdown} />
           </div>
-          <pre className="scrollbar-graph max-h-72 overflow-auto p-4 pr-12 font-mono text-sm text-pretty whitespace-pre-wrap text-muted-foreground sm:p-6">
+          <pre className="scrollbar-graph max-h-72 overflow-auto p-4 pr-12 font-mono text-sm text-muted-foreground sm:p-6">
             <code>{item.markdown}</code>
           </pre>
         </FrameBox>
@@ -224,9 +206,10 @@ function ShowcaseSection() {
             one figure, two formats
           </h2>
           <p className="max-w-[56ch] leading-relaxed text-pretty text-foreground/88">
-            switch between the live react component and the ascii you can paste
-            into a readme, issue, or pull request. {showcaseCount} graphs
-            support both formats.
+            Flip a figure between the live React component and its plain-text
+            version. The text version is what you paste into a README, an issue,
+            or a pull request, where MDX doesn&apos;t render. {showcaseCount}{" "}
+            graphs have both.
           </p>
         </div>
         <ShowcaseBlock slug={showcaseLayout.full} />

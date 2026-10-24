@@ -22,15 +22,16 @@ function AgentsSection() {
                 give your agent the same library
               </h2>
               <ProseP>
-                install the skill and your agent can choose a graph, fill in
-                real props, and place it beside the prose. it writes jsx for
-                mdx, <InlineCode>::graph-*</InlineCode> for{" "}
-                <TextLink href={COMARK_URL}>comark</TextLink>, or a{" "}
-                <TextLink href={KNAP_URL}>knap</TextLink> filter.
+                Install the skill and your agent picks a graph that fits the
+                content, fills it with real values, and puts it next to the
+                paragraph it supports. It writes JSX in MDX files,{" "}
+                <InlineCode>::graph-*</InlineCode> blocks for{" "}
+                <TextLink href={COMARK_URL}>Comark</TextLink>, and filters for{" "}
+                <TextLink href={KNAP_URL}>Knap</TextLink>.
               </ProseP>
               <ProseMuted>
-                in plain markdown, it pastes the official ascii instead of
-                inventing a diagram you cannot reuse.
+                In plain Markdown it pastes the same text figure the docs give
+                you, rather than inventing a one-off diagram.
               </ProseMuted>
             </div>
             <Link

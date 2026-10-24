@@ -1,5 +1,5 @@
 export const MDX_DESCRIPTION =
-  "Wrap your MDX components in withMdxcn. Tags you swap still parse, GitHub alerts become Callouts, a byline makes a Quote, console fences become Terminals, and footnotes get a frame."
+  "Wrap your MDX components in withMdxcn. Graphs keep working when your docs framework replaces standard tags, GitHub alerts become Callouts, a quote with a byline becomes a Quote, console code blocks become Terminals, and footnotes get a frame."
 
 export const MDX_WIRE = `// mdx-components.tsx
 import type { MDXComponents } from "mdx/types"
@@ -42,4 +42,4 @@ Glyphs, not SVG.[^1]
 
 [^1]: SVG does not survive a README.`
 
-export const MDX_WHY = `Docs frameworks swap tags for their own components (li: ListItem, table: Table, h3: Heading). A graph reads its children by tag, so a swapped li looks like an unknown component and the list renders empty. withMdxcn marks each swap so the graphs still see the tag. It works under React Server Components too: the mark rides on a data-graph-host prop.`
+export const MDX_WHY = `Most docs frameworks replace standard tags with their own components, like li with ListItem or table with Table. Graphs read their content by tag name, so a replaced li looks like an unknown component and the list comes out empty. withMdxcn labels each replacement so graphs still recognize the original tag. It also works with React Server Components, because the label is passed as a data-graph-host prop.`

@@ -135,7 +135,7 @@ function GraphTree({
 
   return (
     <Graph title={title} className={className} corner={corner}>
-      <GraphBody className="graph-scroll-x">
+      <GraphBody className="overflow-x-auto overflow-y-hidden">
         <motion.ul
           role="list"
           className="flex min-w-max flex-col gap-1"

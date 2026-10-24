@@ -30,7 +30,7 @@ const extra = `## install
 
 pnpm dlx shadcn@latest add @mdxcn/mdx
 
-all.json already includes it.
+If you installed all.json, you already have it.
 
 ## wire
 
@@ -76,9 +76,11 @@ export default function MdxDocsPage() {
         kicker="withMdxcn"
         lead={
           <ProseLead>
-            wrap your mdx components once. tags you swap still parse, and plain
-            markdown alerts, bylines, shell sessions, and footnotes get a frame.
-            github still renders the original.
+            Wrap your MDX components once with{" "}
+            <InlineCode>withMdxcn</InlineCode>. Graphs keep working even when
+            your docs framework replaces standard tags, and ordinary Markdown
+            alerts, quotes, shell sessions and footnotes get drawn in a frame.
+            GitHub still shows the plain Markdown.
           </ProseLead>
         }
         title="mdx"
@@ -87,8 +89,9 @@ export default function MdxDocsPage() {
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">install</h2>
         <ProseP>
-          <InlineCode>all.json</InlineCode> already includes it. alone it brings
-          callout, quote, and terminal with it.
+          If you installed <InlineCode>all.json</InlineCode>, you already have
+          it. Installed on its own, it also brings in Callout, Quote and
+          Terminal.
         </ProseP>
         <InstallCommand name="mdx" />
       </section>
@@ -121,9 +124,9 @@ export function useMDXComponents(components) {
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">upgrades</h2>
         <ProseP>
-          write markdown that already reads right on github. on your site it
-          becomes the frame below. the full list is on{" "}
-          <TextLink href="/docs/grammar">grammar</TextLink>.
+          Write Markdown that already looks right on GitHub. On your site, it
+          renders as the frames below. The full list is on the{" "}
+          <TextLink href="/docs/grammar">grammar</TextLink> page.
         </ProseP>
         <CopyBlock label="page.mdx" value={MDX_BEFORE} />
         <Callout type="warning">
@@ -155,7 +158,8 @@ export function useMDXComponents(components) {
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">options</h2>
         <ProseP>
-          each upgrade is on by default. turn off the ones you style yourself.
+          Every upgrade is on by default. Turn off any you&apos;d rather style
+          yourself.
         </ProseP>
         <CopyBlock label="options" value={MDX_OPTIONS} />
       </section>

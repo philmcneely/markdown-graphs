@@ -1,12 +1,9 @@
-"use client"
-
-import { GithubIcon } from "../icons/github"
+import { GithubIcon } from "@/components/icons/github"
+import { Button } from "@/components/ui/button"
 import { GITHUB_URL } from "@/lib/github"
-import { addQueryParams } from "@/lib/url"
 import { UTM_PARAMS } from "@/lib/site"
+import { addQueryParams } from "@/lib/url"
 import { cn } from "@/lib/utils"
-import Link from "next/link"
-import { Button } from "../ui/button"
 
 function GithubStarLink({
   stars,
@@ -19,28 +16,21 @@ function GithubStarLink({
     stars === null ? null : new Intl.NumberFormat("en-US").format(stars)
 
   return (
-    <Link
+    <Button
       aria-label={count ? `Star on GitHub, ${count} stars` : "Star on GitHub"}
-      href={addQueryParams(GITHUB_URL, UTM_PARAMS)}
-      rel="noreferrer"
-      className="flex items-center gap-2"
+      className={cn(
+        "text-sm font-normal text-muted-foreground hover:text-foreground",
+        className
+      )}
+      nativeButton={false}
+      render={
+        <a href={addQueryParams(GITHUB_URL, UTM_PARAMS)} rel="noreferrer" />
+      }
+      variant="ghost"
     >
-      <Button
-        variant="ghost"
-        className={cn(
-          "group flex shrink-0 items-center gap-2 text-muted-foreground hover:text-foreground",
-          "transition-all duration-300",
-          className
-        )}
-      >
-        <GithubIcon className="size-4 shrink-0 group-hover:text-yellow-500" />
-        {count && (
-          <span className="flex items-center gap-1 tabular-nums group-hover:text-yellow-500">
-            [{count}]
-          </span>
-        )}
-      </Button>
-    </Link>
+      <GithubIcon className="size-4 shrink-0" />
+      {count ? <span className="tabular-nums">[{count}]</span> : null}
+    </Button>
   )
 }
 

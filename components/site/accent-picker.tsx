@@ -6,6 +6,7 @@ import { MonoLabel } from "@/components/docs/mono-label"
 import { useAccent } from "@/hooks/use-accent"
 import { accents, setAccent } from "@/lib/accent"
 import { cn } from "@/lib/utils"
+import { HitArea } from "@/components/site/hit-area"
 
 function Swatch({
   accent,
@@ -34,10 +35,7 @@ function Swatch({
         )}
         style={{ background: accent.swatch } as CSSProperties}
       />
-      <span
-        aria-hidden="true"
-        className="absolute top-1/2 left-1/2 size-[max(100%,3rem)] -translate-1/2 pointer-fine:hidden"
-      />
+      <HitArea />
     </button>
   )
 }

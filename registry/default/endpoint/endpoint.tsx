@@ -241,7 +241,7 @@ function Endpoint({
             {block.label ? (
               <p className="text-graph-muted">{block.label}</p>
             ) : null}
-            <div className="graph-scroll-x">
+            <div className="overflow-x-auto overflow-y-hidden">
               <pre className="m-0 min-w-max leading-relaxed whitespace-pre text-foreground/80">
                 <code>{block.code}</code>
               </pre>

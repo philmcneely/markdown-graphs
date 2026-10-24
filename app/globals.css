@@ -465,6 +465,9 @@ html.dark[data-accent="prism"] {
   }
   html {
     @apply overflow-x-clip font-sans antialiased;
+    font-synthesis: none;
+    scroll-padding-top: 5rem;
+    -webkit-tap-highlight-color: transparent;
     scrollbar-width: thin;
     scrollbar-color: var(--graph-frame) transparent;
   }

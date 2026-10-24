@@ -1,48 +1,51 @@
 "use client"
 
-import { CopyMark, useCopied } from "@/components/docs/copy-button"
+import { useState } from "react"
+
+import { CopyButton } from "@/components/docs/copy-button"
+import { SegmentedTabs } from "@/components/docs/segmented-tabs"
 import { FrameBox } from "@/components/site/corners"
-import { useOrigin } from "@/lib/docs/origin"
-import { SITE_URL } from "@/lib/site"
+import { REGISTRY_SCOPE } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
+const RUNNERS = {
+  pnpm: "pnpm dlx",
+  npm: "npx",
+  bun: "bunx --bun",
+} as const
+
+type Runner = keyof typeof RUNNERS
+
+const RUNNER_TABS = Object.keys(RUNNERS).map(
+  (id) => [id as Runner, id] as const
+)
+
 function HeroInstall({
-  command,
-  item = "all",
+  item,
   className,
 }: {
-  command?: string
-  item?: string
+  item: string
   className?: string
 }) {
-  const origin = useOrigin()
-  const value =
-    command ?? `pnpm dlx shadcn@latest add ${origin || SITE_URL}/r/${item}.json`
-  const { copied, copy } = useCopied()
+  const [runner, setRunner] = useState<Runner>("pnpm")
+  const command = `${RUNNERS[runner]} shadcn@latest add ${REGISTRY_SCOPE}/${item}`
 
   return (
-    <div
-      className={cn(
-        "mt-4 flex w-full max-w-xl flex-col gap-3 sm:mt-6 sm:flex-row sm:items-stretch",
-        className
-      )}
-    >
-      <FrameBox
-        aria-label={copied ? "copied" : "copy install command"}
-        as="button"
-        className="flex min-w-0 flex-1 items-center gap-2 px-3 py-2.5 text-left font-mono text-sm text-muted-foreground hover:bg-muted/40 sm:py-0"
-        onClick={() => copy(value)}
-        tone="frame"
-        type="button"
-      >
-        <pre className="graph-scroll-x min-w-0 flex-1 py-2.5 sm:py-3">
-          <code>{value}</code>
-        </pre>
-        <span className="pointer-events-none shrink-0 pr-1">
-          <CopyMark copied={copied} />
-        </span>
-      </FrameBox>
-    </div>
+    <FrameBox className={cn("min-w-0 text-left", className)}>
+      <div className="flex items-center justify-between gap-2 border-b border-dashed border-graph-frame px-2 py-1.5">
+        <SegmentedTabs
+          label="Package manager"
+          onValueChange={setRunner}
+          tabClassName="font-mono text-sm"
+          tabs={RUNNER_TABS}
+          value={runner}
+        />
+        <CopyButton label="Copy install command" text={command} />
+      </div>
+      <pre className="px-4 py-3 font-mono text-sm wrap-anywhere whitespace-pre-wrap text-muted-foreground">
+        <code>{command}</code>
+      </pre>
+    </FrameBox>
   )
 }
 

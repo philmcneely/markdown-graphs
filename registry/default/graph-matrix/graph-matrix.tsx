@@ -102,8 +102,8 @@ function GraphMatrix({
 
   return (
     <Graph title={title} className={className} corner={corner}>
-      <GraphBody className="graph-scroll-x">
-        <div className="flex min-w-lg flex-col">
+      <GraphBody className="overflow-x-auto overflow-y-hidden">
+        <div className="flex flex-col">
           <div
             className="grid items-end"
             style={{ gridTemplateColumns: template }}
@@ -144,7 +144,7 @@ function GraphMatrix({
                 >
                   <span
                     className={cn(
-                      "truncate py-2.5 pr-3",
+                      "min-w-0 py-2.5 pr-3 wrap-break-word",
                       live ? toneClass(palette, "primary") : "text-foreground"
                     )}
                   >

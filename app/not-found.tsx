@@ -16,7 +16,7 @@ export default function NotFound() {
           <HomeLink />
         </>
       }
-      body="That URL is not a page. Look next at /docs."
+      body="There's no page at this address. It may have moved, or the link may have a typo. The docs list every component."
       code="404"
       title="not found"
     />

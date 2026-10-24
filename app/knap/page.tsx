@@ -43,9 +43,10 @@ const steps = [
     name: "data",
     detail: (
       <>
-        pass plain json (or any variables{" "}
-        <TextLink href={KNAP_API_URL}>knap</TextLink> can resolve). the filter
-        reads the typed value, not a schema this library invented.
+        Pass plain JSON, or any variables{" "}
+        <TextLink href={KNAP_API_URL}>Knap</TextLink> can resolve. The filter
+        reads the value with its types intact, so there&apos;s no special schema
+        to learn.
       </>
     ),
   },
@@ -53,10 +54,10 @@ const steps = [
     name: "filter",
     detail: (
       <>
-        pipe the graph props through <InlineCode>graph_timeline</InlineCode>,{" "}
-        <InlineCode>graph_meter</InlineCode>, and the rest. a string param is
-        the title. pass <InlineCode>comark</InlineCode> for a{" "}
-        <InlineCode>::graph-*</InlineCode> block.
+        Pipe the data through <InlineCode>graph_timeline</InlineCode>,{" "}
+        <InlineCode>graph_meter</InlineCode> or any other graph filter. A string
+        argument sets the title, and <InlineCode>comark</InlineCode> switches
+        the output to a <InlineCode>::graph-*</InlineCode> block.
       </>
     ),
   },
@@ -64,9 +65,9 @@ const steps = [
     name: "markdown",
     detail: (
       <>
-        output is the official fenced ascii, the same drawing as the .md tab.
-        obsidian, github, and a readme can open it. graphs with no ascii emit
-        comark yaml instead.
+        You get the plain-text figure, identical to the .md tab in the docs,
+        which reads fine in Obsidian, GitHub and READMEs. Graphs without a text
+        version print Comark YAML instead.
       </>
     ),
   },
@@ -137,10 +138,10 @@ export default function KnapPage() {
         item="graph-knap"
         lead={
           <>
-            pipe a props object through a <InlineCode>graph_*</InlineCode>{" "}
-            filter. <TextLink href={KNAP_URL}>knap</TextLink> renders markdown
-            and these filters draw the framed code block. the knap cli does not
-            load custom filters, so you add them in your own app.
+            Pipe your data through a <InlineCode>graph_*</InlineCode> filter in
+            a <TextLink href={KNAP_URL}>Knap</TextLink> template and the output
+            Markdown contains a framed figure. The Knap CLI doesn&apos;t load
+            custom filters, so you register them in your own code.
           </>
         }
         title="graphs from a knap template"
@@ -149,21 +150,20 @@ export default function KnapPage() {
       <LandingSection
         lead={
           <ProseP>
-            same incident as the comark landing. here the source is a{" "}
-            <TextLink href={KNAP_URL}>knap</TextLink> template; the rendered
-            side is the react graphs. toggle to read the template that emitted
-            the fences.
+            The same incident as on the Comark page, this time written as a{" "}
+            <TextLink href={KNAP_URL}>Knap</TextLink> template. Switch to Source
+            to see the template that produced these figures.
           </ProseP>
         }
         title="template and the frames it produces"
       >
         <SourcePreview source={KNAP_DEMO_TEMPLATE}>
           <ProseMuted>
-            p95 crossed 800ms at {KNAP_DEMO_DATA.start}. rollback at{" "}
-            {KNAP_DEMO_DATA.rollback}.
+            Latency crossed 800ms at {KNAP_DEMO_DATA.start}, and we rolled back
+            at {KNAP_DEMO_DATA.rollback}.
           </ProseMuted>
           <GraphTimeline events={[...KNAP_DEMO_DATA.events]} title="NIGHT" />
-          <ProseMuted>same night, and the two days users felt it.</ProseMuted>
+          <ProseMuted>Users noticed it on two days that week.</ProseMuted>
           <GraphUptime
             days={[...KNAP_DEMO_DATA.uptime.days]}
             from={KNAP_DEMO_DATA.uptime.from}
@@ -176,10 +176,9 @@ export default function KnapPage() {
       <LandingSection
         lead={
           <ProseP>
-            you own three files: templating stays in{" "}
-            <TextLink href={KNAP_URL}>knap</TextLink>, the graphs stay copied
-            via shadcn if you also render react, and the filters are the only
-            new piece.
+            Templating is <TextLink href={KNAP_URL}>Knap</TextLink>&apos;s job,
+            and the graphs are the ones you copied with shadcn if you also
+            render React. The filters are the only new code.
           </ProseP>
         }
         title="how the pieces fit"
@@ -199,10 +198,10 @@ export default function KnapPage() {
       <LandingSection
         lead={
           <ProseP>
-            knap is a generator. it writes the fence a readme can paste, or the{" "}
-            <InlineCode>::graph-*</InlineCode> block a{" "}
-            <TextLink href="/comark">comark</TextLink> app can render. it does
-            not draw the react frame itself.
+            Knap generates text. It writes the plain-text figure for a README,
+            or the <InlineCode>::graph-*</InlineCode> block a{" "}
+            <TextLink href="/comark">Comark</TextLink> app renders. Drawing the
+            live React frame is still the component&apos;s job.
           </ProseP>
         }
         title="where each format belongs"

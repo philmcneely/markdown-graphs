@@ -1,6 +1,6 @@
 "use client"
 
-import type { ReactNode } from "react"
+import { useLayoutEffect, useRef, type ReactNode } from "react"
 import { motion, useReducedMotion } from "motion/react"
 
 import {
@@ -220,11 +220,23 @@ function GraphActivity({
   const summary = `${total.toLocaleString("en-US")} contributions`
   const set = resolveGlyphs(glyphs)
   const quiet = set[0] ?? "·"
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  // Narrow frames open on the latest weeks, like GitHub.
+  useLayoutEffect(() => {
+    const el = scrollRef.current
+    if (el) {
+      el.scrollLeft = el.scrollWidth
+    }
+  }, [weeks.length])
 
   return (
     <Graph title={title} className={className} corner={corner}>
       <GraphBody className="flex flex-col gap-4">
-        <div className="scrollbar-graph overflow-x-auto">
+        <div
+          className="scrollbar-graph overflow-x-auto overflow-y-hidden"
+          ref={scrollRef}
+        >
           <div
             className="flex w-full flex-col gap-1 pr-[2ch]"
             style={{ minWidth: `max(100%, ${weeks.length + 4}ch)` }}
